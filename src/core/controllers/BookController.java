@@ -4,10 +4,208 @@
  */
 package core.controllers;
 
+import core.controllers.utils.Response;
+import core.controllers.utils.Status;
+import core.models.Audiobook;
+import core.models.Author;
+import core.models.Book;
+import core.models.DigitalBook;
+import core.models.Narrator;
+import core.models.PrintedBook;
+import core.models.Publisher;
+import java.util.ArrayList;
+
 /**
  *
  * @author famil
  */
 public class BookController {
     
+ public static Response createBook(
+            String title, String authorsV, String isbn, String genre, String format, String valueV, String publisherV,
+            boolean printed, boolean digital, boolean audio, String hyperlink, String durationV, String narratorV,
+            String pagesV, String copiesV) {
+
+        try {
+            
+            if (title.trim().isEmpty()) {
+                return new Response("El título no puede estar vacío.", Status.BAD_REQUEST);
+            }
+
+            if (authorsV.trim().isEmpty()) {
+                return new Response("Debe ingresar al menos un autor.", Status.BAD_REQUEST);
+            }
+
+            isbn = isbn.trim();
+            if (isbn.isEmpty()) {
+                return new Response("El ISBN no puede estar vacío.", Status.BAD_REQUEST);
+            }
+
+            if (!isbn.matches("\\d{3}-\\d-\\d{2}-\\d{6}-\\d")) {
+                return new Response("ISBN inválido. Formato requerido: XXX-X-XX-XXXXXX-X", Status.BAD_REQUEST);
+            }
+
+            if (bookRepository.findByIsbn(isbn) != null) {
+                return new Response("Este ISBN ya está registrado.", Status.BAD_REQUEST);
+            }
+
+            if (genre.equals("Seleccione uno...")) {
+                return new Response("Debe seleccionar un género.", Status.BAD_REQUEST);
+            }
+
+            if (format.equals("Seleccione uno...")) {
+                return new Response("Debe seleccionar un formato.", Status.BAD_REQUEST);
+            }
+
+            if (!printed && !digital && !audio) {
+                return new Response("Debe seleccionar un tipo de libro.", Status.BAD_REQUEST);
+            }
+
+            
+            double value;
+            try {
+                value = Double.parseDouble(valueV.trim());
+                if (value <= 0) {
+                    return new Response("El valor debe ser mayor que 0.", Status.BAD_REQUEST);
+                }
+            } catch (NumberFormatException e) {
+                return new Response("El valor debe ser numérico.", Status.BAD_REQUEST);
+            }
+
+            
+            if (publisherV.equals("Seleccione uno...")) {
+                return new Response("Debe seleccionar una editorial.", Status.BAD_REQUEST);
+            }
+
+            int i = publisherV.indexOf("(");
+            int j = publisherV.indexOf(")");
+            String nit = publisherV.substring(i + 1, j).trim();
+
+            Publisher publisher = publisherRepository.findByNit(nit);
+
+            if (publisher == null) {
+                return new Response("La editorial no existe.", Status.BAD_REQUEST);
+            }
+
+            
+            String[] lines = authorsV.split("\n");
+            ArrayList<Author> authors = new ArrayList<>();
+            ArrayList<Long> idsRepetidos = new ArrayList<>();
+
+            for (String line : lines) {
+
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
+
+                long id = Long.parseLong(line.split(" - ")[0].trim());
+
+                
+                for (Long usado : idsRepetidos) {
+                    if (usado == id) {
+                        return new Response("No puede repetir autores en el mismo libro.", Status.BAD_REQUEST);
+                    }
+                }
+
+                idsRepetidos.add(id);
+
+                Author a = (Author) personRepository.findById(id);
+                if (a == null) {
+                    return new Response("El autor con ID " + id + " no existe.", Status.BAD_REQUEST);
+                }
+
+                authors.add(a);
+            }
+
+            if (authors.isEmpty()) {
+                return new Response("Debe seleccionar al menos un autor válido.", Status.BAD_REQUEST);
+            }
+
+           
+            Book created = null;
+
+            
+            if (printed) {
+
+                if (pagesV.trim().isEmpty()) {
+                    return new Response("Debe ingresar número de páginas.", Status.BAD_REQUEST);
+                }
+
+                if (copiesV.trim().isEmpty()) {
+                    return new Response("Debe ingresar número de ejemplares.", Status.BAD_REQUEST);
+                }
+
+                int pages, copies;
+                try {
+                    pages = Integer.parseInt(pagesV.trim());
+                    copies = Integer.parseInt(copiesV.trim());
+
+                    if (pages <= 0) {
+                        return new Response("Las páginas deben ser mayores a 0.", Status.BAD_REQUEST);
+                    }
+
+                    if (copies <= 0) {
+                        return new Response("Las copias deben ser mayores a 0.", Status.BAD_REQUEST);
+                    }
+
+                } catch (Exception e) {
+                    return new Response("Páginas o copias inválidas.", Status.BAD_REQUEST);
+                }
+
+                created = new PrintedBook(title, authors, isbn, genre, format, value, publisher, pages, copies);
+            } 
+            else if (digital) {
+
+                if (hyperlink.trim().isEmpty()) {
+                    created = new DigitalBook(title, authors, isbn, genre, format, value, publisher);
+                } else {
+                    created = new DigitalBook(title, authors, isbn, genre, format, value, publisher, hyperlink);
+                }
+
+            } 
+            else if (audio) {
+
+                if (narratorV.equals("Seleccione uno...")) {
+                    return new Response("Debe seleccionar un narrador.", Status.BAD_REQUEST);
+                }
+
+                long nId = Long.parseLong(narratorV.split(" - ")[0].trim());
+
+                Narrator narrator = (Narrator) personRepository.findById(nId);
+
+                if (narrator == null) {
+                    return new Response("El narrador no existe.", Status.BAD_REQUEST);
+                }
+
+                if (durationV.trim().isEmpty()) {
+                    return new Response("La duración no puede estar vacía.", Status.BAD_REQUEST);
+                }
+
+                int duration;
+                try {
+                    duration = Integer.parseInt(durationV.trim());
+                    if (duration <= 0) {
+                        return new Response("La duración debe ser mayor a 0.", Status.BAD_REQUEST);
+                    }
+
+                } catch (Exception e) {
+                    return new Response("Duración inválida.", Status.BAD_REQUEST);
+                }
+
+                created = new Audiobook(title, authors, isbn, genre, format, value, publisher, duration, narrator);
+            }
+
+            
+            boolean ok = bookRepository.add(created);
+
+            if (!ok) {
+                return new Response("Error al guardar el libro.", Status.INTERNAL_SERVER_ERROR);
+            }
+
+            return new Response("Libro creado correctamente.", Status.CREATED, created.clone());
+
+        } catch (Exception e) {
+            return new Response("Error inesperado al crear libro.", Status.INTERNAL_SERVER_ERROR);
+        }
+    }   
 }

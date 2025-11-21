@@ -14,7 +14,14 @@ import core.models.DigitalBook;
 import core.models.Author;
 import core.models.Audiobook;
 import com.formdev.flatlaf.FlatDarkLaf;
+import core.controllers.AuthorController;
+import core.controllers.ManagerController;
+import core.controllers.NarratorController;
+import core.controllers.PublisherController;
+import core.controllers.StandController;
+import core.controllers.utils.Response;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
@@ -56,14 +63,14 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
+        mainTabbedPane = new javax.swing.JTabbedPane();
+        standPanel = new javax.swing.JPanel();
         standPriceLabel = new javax.swing.JLabel();
         standIdLabel = new javax.swing.JLabel();
         standPriceTextField = new javax.swing.JTextField();
         standIdTextField = new javax.swing.JTextField();
         createStandButton = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        personPanel = new javax.swing.JPanel();
         personNameLabel = new javax.swing.JLabel();
         personIdLabel = new javax.swing.JLabel();
         personIdTextField = new javax.swing.JTextField();
@@ -73,17 +80,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         personLastNameLabel = new javax.swing.JLabel();
         createManagerButton = new javax.swing.JButton();
         createNarratorButton = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        publisherNitLabel = new javax.swing.JLabel();
-        publisherNitTextField = new javax.swing.JTextField();
-        publisherNameTextField = new javax.swing.JTextField();
-        publisherNameLabel = new javax.swing.JLabel();
-        publisherAddressLabel = new javax.swing.JLabel();
-        publisherAddressTextField = new javax.swing.JTextField();
-        createPublisherButton = new javax.swing.JButton();
-        publisherManagerLabel = new javax.swing.JLabel();
-        managerComboBox = new javax.swing.JComboBox<>();
-        jPanel5 = new javax.swing.JPanel();
+        bookPanel = new javax.swing.JPanel();
         bookTitleLabel = new javax.swing.JLabel();
         bookTitleTextField = new javax.swing.JTextField();
         bookAuthorsLabel = new javax.swing.JLabel();
@@ -115,9 +112,9 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         narratorComboBox = new javax.swing.JComboBox<>();
         addAuthorButton = new javax.swing.JButton();
         removeAuthorButton = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jPanel6 = new javax.swing.JPanel();
+        selectedAuthorsScrollPane = new javax.swing.JScrollPane();
+        selectedAuthorsTextArea = new javax.swing.JTextArea();
+        standPurchasePanel = new javax.swing.JPanel();
         standIdComboBox = new javax.swing.JComboBox<>();
         purchasePublisherComboBox = new javax.swing.JComboBox<>();
         purchasePublishersLabel = new javax.swing.JLabel();
@@ -126,30 +123,30 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         purchaseStandButton = new javax.swing.JButton();
         removePublisherButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        selectedPublishersTextArea = new javax.swing.JTextArea();
         addStandButton = new javax.swing.JButton();
         removeStandButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
-        jPanel7 = new javax.swing.JPanel();
+        selectedStandsTextArea = new javax.swing.JTextArea();
+        publisherConsultPanel = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         publisherTable = new javax.swing.JTable();
         consultPublishersButton = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
+        personConsultPanel = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         personTable = new javax.swing.JTable();
         consultPeopleButton = new javax.swing.JButton();
-        jPanel9 = new javax.swing.JPanel();
+        standConsultPanel = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         standTable = new javax.swing.JTable();
         consultStandsButton = new javax.swing.JButton();
-        jPanel10 = new javax.swing.JPanel();
+        bookConsultPanel = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         bookTable = new javax.swing.JTable();
         consultBooksButton = new javax.swing.JButton();
         bookFilterComboBox = new javax.swing.JComboBox<>();
         bookFilterLabel = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
+        additionalQueriesPanel = new javax.swing.JPanel();
         bookSearchTitleLabel = new javax.swing.JLabel();
         authorSearchComboBox = new javax.swing.JComboBox<>();
         bookSearchAuthorLabel = new javax.swing.JLabel();
@@ -163,19 +160,29 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         jScrollPane9 = new javax.swing.JScrollPane();
         topAuthorsTable = new javax.swing.JTable();
         consultTopAuthorsButton = new javax.swing.JButton();
+        publisherPanel = new javax.swing.JPanel();
+        publisherNitLabel = new javax.swing.JLabel();
+        publisherNitTextField = new javax.swing.JTextField();
+        publisherNameTextField = new javax.swing.JTextField();
+        publisherNameLabel = new javax.swing.JLabel();
+        publisherAddressLabel = new javax.swing.JLabel();
+        publisherAddressTextField = new javax.swing.JTextField();
+        createPublisherButton = new javax.swing.JButton();
+        publisherManagerLabel = new javax.swing.JLabel();
+        managerComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        standPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         standPriceLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         standPriceLabel.setText("Precio");
-        jPanel2.add(standPriceLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, -1, -1));
+        standPanel.add(standPriceLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, -1, -1));
 
         standIdLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         standIdLabel.setText("ID");
-        jPanel2.add(standIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, -1, -1));
+        standPanel.add(standIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, -1, -1));
 
         standPriceTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         standPriceTextField.setToolTipText("");
@@ -184,7 +191,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 standPriceTextFieldActionPerformed(evt);
             }
         });
-        jPanel2.add(standPriceTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, 150, 30));
+        standPanel.add(standPriceTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, 150, 30));
 
         standIdTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         standIdTextField.setToolTipText("");
@@ -193,7 +200,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 standIdTextFieldActionPerformed(evt);
             }
         });
-        jPanel2.add(standIdTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 180, 150, 30));
+        standPanel.add(standIdTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 180, 150, 30));
 
         createStandButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         createStandButton.setText("Crear");
@@ -202,9 +209,9 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 createStandButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(createStandButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, 90, 40));
+        standPanel.add(createStandButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, 90, 40));
 
-        jTabbedPane1.addTab("Stand", jPanel2);
+        mainTabbedPane.addTab("Stand", standPanel);
 
         personNameLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         personNameLabel.setText("Nombre");
@@ -263,29 +270,29 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout personPanelLayout = new javax.swing.GroupLayout(personPanel);
+        personPanel.setLayout(personPanelLayout);
+        personPanelLayout.setHorizontalGroup(
+            personPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(personPanelLayout.createSequentialGroup()
+                .addGroup(personPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(personPanelLayout.createSequentialGroup()
                         .addGap(264, 264, 264)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(personPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(personPanelLayout.createSequentialGroup()
                                 .addComponent(personLastNameLabel)
                                 .addGap(21, 21, 21)
                                 .addComponent(personLastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                            .addGroup(personPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, personPanelLayout.createSequentialGroup()
                                     .addComponent(personIdLabel)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(personIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, personPanelLayout.createSequentialGroup()
                                     .addComponent(personNameLabel)
                                     .addGap(21, 21, 21)
                                     .addComponent(personFirstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(personPanelLayout.createSequentialGroup()
                         .addGap(162, 162, 162)
                         .addComponent(createAuthorButton)
                         .addGap(56, 56, 56)
@@ -294,129 +301,30 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                         .addComponent(createNarratorButton)))
                 .addContainerGap(138, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        personPanelLayout.setVerticalGroup(
+            personPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(personPanelLayout.createSequentialGroup()
                 .addGap(153, 153, 153)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(personPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(personIdLabel)
                     .addComponent(personIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(personPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(personNameLabel)
                     .addComponent(personFirstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(personPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(personLastNameLabel)
                     .addComponent(personLastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(personPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createAuthorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(createNarratorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(createManagerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(219, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Persona", jPanel3);
-
-        publisherNitLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherNitLabel.setText("NIT");
-
-        publisherNitTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherNitTextField.setToolTipText("");
-        publisherNitTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                publisherNitTextFieldActionPerformed(evt);
-            }
-        });
-
-        publisherNameTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherNameTextField.setToolTipText("");
-        publisherNameTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                publisherNameTextFieldActionPerformed(evt);
-            }
-        });
-
-        publisherNameLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherNameLabel.setText("Nombre");
-
-        publisherAddressLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherAddressLabel.setText("Dirección");
-
-        publisherAddressTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherAddressTextField.setToolTipText("");
-        publisherAddressTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                publisherAddressTextFieldActionPerformed(evt);
-            }
-        });
-
-        createPublisherButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        createPublisherButton.setText("Crear");
-        createPublisherButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createPublisherButtonActionPerformed(evt);
-            }
-        });
-
-        publisherManagerLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherManagerLabel.setText("Gerente");
-
-        managerComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        managerComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno..." }));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(273, 273, 273)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(publisherAddressLabel)
-                            .addComponent(publisherNitLabel)
-                            .addComponent(publisherNameLabel)
-                            .addComponent(publisherManagerLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(publisherNitTextField)
-                            .addComponent(publisherNameTextField)
-                            .addComponent(publisherAddressTextField)
-                            .addComponent(managerComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(361, 361, 361)
-                        .addComponent(createPublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(285, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(144, 144, 144)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(publisherNitLabel)
-                        .addGap(15, 15, 15)
-                        .addComponent(publisherNameLabel)
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(publisherAddressLabel)
-                            .addComponent(publisherAddressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(publisherNitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addComponent(publisherNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(managerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(publisherManagerLabel))
-                .addGap(46, 46, 46)
-                .addComponent(createPublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(175, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Editorial", jPanel4);
+        mainTabbedPane.addTab("Persona", personPanel);
 
         bookTitleLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         bookTitleLabel.setText("Titulo");
@@ -576,29 +484,29 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jTextArea2.setRows(5);
-        jTextArea2.setEnabled(false);
-        jScrollPane2.setViewportView(jTextArea2);
+        selectedAuthorsTextArea.setColumns(20);
+        selectedAuthorsTextArea.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        selectedAuthorsTextArea.setRows(5);
+        selectedAuthorsTextArea.setEnabled(false);
+        selectedAuthorsScrollPane.setViewportView(selectedAuthorsTextArea);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout bookPanelLayout = new javax.swing.GroupLayout(bookPanel);
+        bookPanel.setLayout(bookPanelLayout);
+        bookPanelLayout.setHorizontalGroup(
+            bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bookPanelLayout.createSequentialGroup()
                 .addGap(345, 345, 345)
                 .addComponent(createBookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(bookPanelLayout.createSequentialGroup()
+                .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bookPanelLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(printedPagesLabel)
                             .addComponent(printedCopiesLabel))
                         .addGap(20, 20, 20)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pagesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(copiesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
@@ -606,19 +514,19 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                         .addGap(16, 16, 16)
                         .addComponent(digitalLinkTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(audiobookNarratorLabel)
                             .addComponent(audiobookDurationLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(narratorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(durationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGroup(bookPanelLayout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bookPanelLayout.createSequentialGroup()
+                                .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(bookIsbnLabel)
                                     .addComponent(bookTitleLabel)
                                     .addComponent(bookAuthorsLabel)
@@ -627,102 +535,102 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                                     .addComponent(bookFormatLabel)
                                     .addComponent(bookValueLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(bookPanelLayout.createSequentialGroup()
                                         .addComponent(bookValueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(bookPanelLayout.createSequentialGroup()
+                                        .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                 .addComponent(formatComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bookPanelLayout.createSequentialGroup()
                                                     .addComponent(printedRadioButton)
                                                     .addGap(18, 18, 18)
                                                     .addComponent(digitalRadioButton)))
-                                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(bookTitleTextField)
                                                 .addComponent(isbnTextField)
                                                 .addComponent(genreComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(authorComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                         .addGap(28, 28, 28)
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(audiobookRadioButton)
                                             .addComponent(removeAuthorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(addAuthorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(18, 18, 18)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(selectedAuthorsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))))
+                            .addGroup(bookPanelLayout.createSequentialGroup()
                                 .addComponent(bookPublisherLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(publisherComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
+        bookPanelLayout.setVerticalGroup(
+            bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bookPanelLayout.createSequentialGroup()
+                .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bookPanelLayout.createSequentialGroup()
+                        .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bookPanelLayout.createSequentialGroup()
                                 .addGap(23, 23, 23)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(bookTitleLabel)
                                     .addComponent(bookTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(10, 10, 10)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(bookAuthorsLabel)
                                     .addComponent(authorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(bookIsbnLabel)
                                     .addComponent(isbnTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(17, 17, 17)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(bookGenreLabel)
                                     .addComponent(genreComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addGroup(bookPanelLayout.createSequentialGroup()
                                 .addGap(37, 37, 37)
                                 .addComponent(addAuthorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(removeAuthorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bookTypeLabel)
                             .addComponent(printedRadioButton)
                             .addComponent(digitalRadioButton)
                             .addComponent(audiobookRadioButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bookFormatLabel)
                             .addComponent(formatComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bookValueLabel)
                             .addComponent(bookValueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bookPublisherLabel)
                             .addComponent(publisherComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGroup(bookPanelLayout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(selectedAuthorsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bookPanelLayout.createSequentialGroup()
+                        .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(printedPagesLabel)
                             .addComponent(digitalLinkLabel)
                             .addComponent(digitalLinkTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(printedCopiesLabel))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGroup(bookPanelLayout.createSequentialGroup()
                         .addComponent(copiesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(pagesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(audiobookDurationLabel)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(bookPanelLayout.createSequentialGroup()
+                        .addGroup(bookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(audiobookNarratorLabel)
                             .addComponent(narratorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
@@ -732,7 +640,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
-        jTabbedPane1.addTab("Libro", jPanel5);
+        mainTabbedPane.addTab("Libro", bookPanel);
 
         standIdComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         standIdComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno..." }));
@@ -770,11 +678,11 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jTextArea1.setRows(5);
-        jTextArea1.setEnabled(false);
-        jScrollPane1.setViewportView(jTextArea1);
+        selectedPublishersTextArea.setColumns(20);
+        selectedPublishersTextArea.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        selectedPublishersTextArea.setRows(5);
+        selectedPublishersTextArea.setEnabled(false);
+        jScrollPane1.setViewportView(selectedPublishersTextArea);
 
         addStandButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         addStandButton.setText("Agregar Stand");
@@ -792,26 +700,26 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jTextArea3.setRows(5);
-        jTextArea3.setEnabled(false);
-        jScrollPane3.setViewportView(jTextArea3);
+        selectedStandsTextArea.setColumns(20);
+        selectedStandsTextArea.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        selectedStandsTextArea.setRows(5);
+        selectedStandsTextArea.setEnabled(false);
+        jScrollPane3.setViewportView(selectedStandsTextArea);
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+        javax.swing.GroupLayout standPurchasePanelLayout = new javax.swing.GroupLayout(standPurchasePanel);
+        standPurchasePanel.setLayout(standPurchasePanelLayout);
+        standPurchasePanelLayout.setHorizontalGroup(
+            standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, standPurchasePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGroup(standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, standPurchasePanelLayout.createSequentialGroup()
                         .addComponent(purchaseStandButton)
                         .addGap(321, 321, 321))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, standPurchasePanelLayout.createSequentialGroup()
+                        .addGroup(standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addGroup(standPurchasePanelLayout.createSequentialGroup()
                                 .addComponent(purchasePublishersLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(purchasePublisherComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -820,41 +728,41 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(removePublisherButton)))
                         .addGap(189, 189, 189))))
-            .addGroup(jPanel6Layout.createSequentialGroup()
+            .addGroup(standPurchasePanelLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(purchaseStandsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(standIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addGroup(standPurchasePanelLayout.createSequentialGroup()
                         .addComponent(addStandButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(removeStandButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        standPurchasePanelLayout.setVerticalGroup(
+            standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(standPurchasePanelLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(standPurchasePanelLayout.createSequentialGroup()
+                        .addGroup(standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(purchaseStandsLabel)
                             .addComponent(standIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(226, 226, 226)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(purchasePublishersLabel)
                             .addComponent(purchasePublisherComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(standPurchasePanelLayout.createSequentialGroup()
+                        .addGroup(standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addStandButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(removeStandButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3)
                         .addGap(8, 8, 8)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addPublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(removePublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -864,7 +772,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addGap(59, 59, 59))
         );
 
-        jTabbedPane1.addTab("Comprar Stand", jPanel6);
+        mainTabbedPane.addTab("Comprar Stand", standPurchasePanel);
 
         publisherTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -895,23 +803,23 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout publisherConsultPanelLayout = new javax.swing.GroupLayout(publisherConsultPanel);
+        publisherConsultPanel.setLayout(publisherConsultPanelLayout);
+        publisherConsultPanelLayout.setHorizontalGroup(
+            publisherConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(publisherConsultPanelLayout.createSequentialGroup()
+                .addGroup(publisherConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(publisherConsultPanelLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(publisherConsultPanelLayout.createSequentialGroup()
                         .addGap(361, 361, 361)
                         .addComponent(consultPublishersButton)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        publisherConsultPanelLayout.setVerticalGroup(
+            publisherConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(publisherConsultPanelLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -919,7 +827,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addGap(39, 39, 39))
         );
 
-        jTabbedPane1.addTab("Show Editoriales", jPanel7);
+        mainTabbedPane.addTab("Show Editoriales", publisherConsultPanel);
 
         personTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -950,23 +858,23 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
+        javax.swing.GroupLayout personConsultPanelLayout = new javax.swing.GroupLayout(personConsultPanel);
+        personConsultPanel.setLayout(personConsultPanelLayout);
+        personConsultPanelLayout.setHorizontalGroup(
+            personConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(personConsultPanelLayout.createSequentialGroup()
+                .addGroup(personConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(personConsultPanelLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
+                    .addGroup(personConsultPanelLayout.createSequentialGroup()
                         .addGap(361, 361, 361)
                         .addComponent(consultPeopleButton)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        personConsultPanelLayout.setVerticalGroup(
+            personConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(personConsultPanelLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -974,7 +882,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addGap(39, 39, 39))
         );
 
-        jTabbedPane1.addTab("Show Personas", jPanel8);
+        mainTabbedPane.addTab("Show Personas", personConsultPanel);
 
         standTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1006,23 +914,23 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
+        javax.swing.GroupLayout standConsultPanelLayout = new javax.swing.GroupLayout(standConsultPanel);
+        standConsultPanel.setLayout(standConsultPanelLayout);
+        standConsultPanelLayout.setHorizontalGroup(
+            standConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(standConsultPanelLayout.createSequentialGroup()
+                .addGroup(standConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(standConsultPanelLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
+                    .addGroup(standConsultPanelLayout.createSequentialGroup()
                         .addGap(361, 361, 361)
                         .addComponent(consultStandsButton)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        standConsultPanelLayout.setVerticalGroup(
+            standConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(standConsultPanelLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -1030,7 +938,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addGap(39, 39, 39))
         );
 
-        jTabbedPane1.addTab("Show Stands", jPanel9);
+        mainTabbedPane.addTab("Show Stands", standConsultPanel);
 
         bookTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1067,30 +975,30 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         bookFilterLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         bookFilterLabel.setText("Libros");
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
+        javax.swing.GroupLayout bookConsultPanelLayout = new javax.swing.GroupLayout(bookConsultPanel);
+        bookConsultPanel.setLayout(bookConsultPanelLayout);
+        bookConsultPanelLayout.setHorizontalGroup(
+            bookConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bookConsultPanelLayout.createSequentialGroup()
+                .addGroup(bookConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bookConsultPanelLayout.createSequentialGroup()
                         .addGap(361, 361, 361)
                         .addComponent(consultBooksButton))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
+                    .addGroup(bookConsultPanelLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
+                    .addGroup(bookConsultPanelLayout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(bookFilterLabel)
                         .addGap(18, 18, 18)
                         .addComponent(bookFilterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
+        bookConsultPanelLayout.setVerticalGroup(
+            bookConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bookConsultPanelLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(bookConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bookFilterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bookFilterLabel))
                 .addGap(18, 18, 18)
@@ -1100,7 +1008,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
-        jTabbedPane1.addTab("Show Libros", jPanel10);
+        mainTabbedPane.addTab("Show Libros", bookConsultPanel);
 
         bookSearchTitleLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         bookSearchTitleLabel.setText("Busqueda Libros");
@@ -1186,17 +1094,17 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
+        javax.swing.GroupLayout additionalQueriesPanelLayout = new javax.swing.GroupLayout(additionalQueriesPanel);
+        additionalQueriesPanel.setLayout(additionalQueriesPanelLayout);
+        additionalQueriesPanelLayout.setHorizontalGroup(
+            additionalQueriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGroup(additionalQueriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
                         .addComponent(bookSearchTitleLabel)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
+                    .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
                         .addComponent(bookSearchAuthorLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(authorSearchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1209,29 +1117,29 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(searchBooksByFormatButton)
                         .addGap(40, 40, 40))))
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
+            .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
+                .addGroup(additionalQueriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(additionalQueriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel11Layout.createSequentialGroup()
+                            .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(additionalQueriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(topAuthorsLabel)))))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
+                    .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
                         .addGap(345, 345, 345)
                         .addComponent(consultTopAuthorsButton)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
+        additionalQueriesPanelLayout.setVerticalGroup(
+            additionalQueriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(bookSearchTitleLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(additionalQueriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bookSearchAuthorLabel)
                     .addComponent(authorSearchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchBooksByAuthorButton)
@@ -1249,17 +1157,116 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Consultas Adicionales", jPanel11);
+        mainTabbedPane.addTab("Consultas Adicionales", additionalQueriesPanel);
+
+        publisherNitLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherNitLabel.setText("NIT");
+
+        publisherNitTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherNitTextField.setToolTipText("");
+        publisherNitTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                publisherNitTextFieldActionPerformed(evt);
+            }
+        });
+
+        publisherNameTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherNameTextField.setToolTipText("");
+        publisherNameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                publisherNameTextFieldActionPerformed(evt);
+            }
+        });
+
+        publisherNameLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherNameLabel.setText("Nombre");
+
+        publisherAddressLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherAddressLabel.setText("Dirección");
+
+        publisherAddressTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherAddressTextField.setToolTipText("");
+        publisherAddressTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                publisherAddressTextFieldActionPerformed(evt);
+            }
+        });
+
+        createPublisherButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        createPublisherButton.setText("Crear");
+        createPublisherButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createPublisherButtonActionPerformed(evt);
+            }
+        });
+
+        publisherManagerLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherManagerLabel.setText("Gerente");
+
+        managerComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        managerComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno..." }));
+
+        javax.swing.GroupLayout publisherPanelLayout = new javax.swing.GroupLayout(publisherPanel);
+        publisherPanel.setLayout(publisherPanelLayout);
+        publisherPanelLayout.setHorizontalGroup(
+            publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(publisherPanelLayout.createSequentialGroup()
+                .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(publisherPanelLayout.createSequentialGroup()
+                        .addGap(273, 273, 273)
+                        .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(publisherAddressLabel)
+                            .addComponent(publisherNitLabel)
+                            .addComponent(publisherNameLabel)
+                            .addComponent(publisherManagerLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(publisherNitTextField)
+                            .addComponent(publisherNameTextField)
+                            .addComponent(publisherAddressTextField)
+                            .addComponent(managerComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(publisherPanelLayout.createSequentialGroup()
+                        .addGap(361, 361, 361)
+                        .addComponent(createPublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(285, Short.MAX_VALUE))
+        );
+        publisherPanelLayout.setVerticalGroup(
+            publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(publisherPanelLayout.createSequentialGroup()
+                .addGap(144, 144, 144)
+                .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(publisherPanelLayout.createSequentialGroup()
+                        .addComponent(publisherNitLabel)
+                        .addGap(15, 15, 15)
+                        .addComponent(publisherNameLabel)
+                        .addGap(20, 20, 20)
+                        .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(publisherAddressLabel)
+                            .addComponent(publisherAddressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(publisherPanelLayout.createSequentialGroup()
+                        .addComponent(publisherNitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addComponent(publisherNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(managerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(publisherManagerLabel))
+                .addGap(46, 46, 46)
+                .addComponent(createPublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(175, Short.MAX_VALUE))
+        );
+
+        mainTabbedPane.addTab("Editorial", publisherPanel);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(mainTabbedPane)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(mainTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1393,87 +1400,164 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_digitalRadioButtonActionPerformed
 
     private void createStandButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createStandButtonActionPerformed
-        // TODO add your handling code here:
-        long id = Long.parseLong(standIdTextField.getText());
-        double price = Double.parseDouble(standPriceTextField.getText());
+        String idStr = standIdTextField.getText();
+        String priceStr = standPriceTextField.getText();
         
-        this.stands.add(new Stand(id, price));
-        
-        standIdComboBox.addItem("" + id);
+        Response response = StandController.createStand(idStr, priceStr);
+
+        if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+        } else if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
+            
+            standIdTextField.setText("");
+            standPriceTextField.setText("");
+            
+            Stand stand = (Stand) response.getObject();
+            standIdComboBox.addItem(stand.getId() + "");
+        }
     }//GEN-LAST:event_createStandButtonActionPerformed
 
     private void createAuthorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAuthorButtonActionPerformed
-        // TODO add your handling code here:
-        long id = Long.parseLong(personIdTextField.getText());
-        String firstname = personFirstNameTextField.getText();
-        String lastname = personLastNameTextField.getText();
-        
-        this.authors.add(new Author(id, firstname, lastname));
-        
-        authorComboBox.addItem(id + " - " + firstname + " " + lastname);
-        authorSearchComboBox.addItem(id + " - " + firstname + " " + lastname);
+       String idStr = personIdTextField.getText();
+        String firstName = personFirstNameTextField.getText();
+        String lastName = personLastNameTextField.getText();
+
+        Response response = AuthorController.createAuthor(idStr, firstName, lastName);
+
+        if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+        } else if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            
+            personIdTextField.setText("");
+            personFirstNameTextField.setText("");
+            personLastNameTextField.setText("");
+
+            
+            Author author = (Author) response.getObject();
+
+            authorComboBox.addItem(author.getId() + " - " + author.getFirstname() + " " + author.getLastname());
+            authorSearchComboBox.addItem(author.getId() + " - " + author.getFirstname() + " " + author.getLastname());
+        }
     }//GEN-LAST:event_createAuthorButtonActionPerformed
 
     private void createManagerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createManagerButtonActionPerformed
-        // TODO add your handling code here:
-        long id = Long.parseLong(personIdTextField.getText());
-        String firstname = personFirstNameTextField.getText();
-        String lastname = personLastNameTextField.getText();
-        
-        this.managers.add(new Manager(id, firstname, lastname));
-        
-        managerComboBox.addItem(id + " - " + firstname + " " + lastname);
+        String idStr = personIdTextField.getText();
+        String firstName = personFirstNameTextField.getText();
+        String lastName = personLastNameTextField.getText();
+
+        Response response = ManagerController.createManager(idStr, firstName, lastName);
+
+        if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+
+        } else if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            
+            personIdTextField.setText("");
+            personFirstNameTextField.setText("");
+            personLastNameTextField.setText("");
+
+            Manager manager = (Manager) response.getObject();
+
+            
+            managerComboBox.addItem(manager.getId() + " - " + manager.getFirstname() + " " + manager.getLastname());
+        }
     }//GEN-LAST:event_createManagerButtonActionPerformed
 
     private void createNarratorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNarratorButtonActionPerformed
-        // TODO add your handling code here:
-        long id = Long.parseLong(personIdTextField.getText());
-        String firstname = personFirstNameTextField.getText();
-        String lastname = personLastNameTextField.getText();
+        String idStr = personIdTextField.getText();
+        String firstName = personFirstNameTextField.getText();
+        String lastName = personLastNameTextField.getText();
+
         
-        this.narrators.add(new Narrator(id, firstname, lastname));
-        
-        narratorComboBox.addItem(id + " - " + firstname + " " + lastname);
+        Response response = NarratorController.createNarrator(idStr, firstName, lastName);
+
+        if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+
+        } else if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            
+            personIdTextField.setText("");
+            personFirstNameTextField.setText("");
+            personLastNameTextField.setText("");
+
+            
+            Narrator narrator = (Narrator) response.getObject();
+
+            
+            narratorComboBox.addItem(narrator.getId() + " - " + narrator.getFirstname() + " " + narrator.getLastname());
+        }
     }//GEN-LAST:event_createNarratorButtonActionPerformed
 
     private void createPublisherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPublisherButtonActionPerformed
-        // TODO add your handling code here:
         String nit = publisherNitTextField.getText();
         String name = publisherNameTextField.getText();
         String address = publisherAddressTextField.getText();
+
+        
         String[] managerData = managerComboBox.getItemAt(managerComboBox.getSelectedIndex()).split(" - ");
+        String managerId = managerData[0];
+
         
-        long managerId = Long.parseLong(managerData[0]);
+        Response response = PublisherController.createPublisher(nit, name, address, managerId);
+
         
-        Manager manager = null;
-        for (Manager manag : this.managers) {
-            if (manag.getId() == managerId) {
-                manager = manag;
-            }
+        if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+
+        } else if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            
+            publisherNitTextField.setText("");
+            publisherNameTextField.setText("");
+            publisherAddressTextField.setText("");
+            managerComboBox.setSelectedIndex(0);
+
+            
+            Publisher publisher = (Publisher) response.getObject();
+
+            
+            publisherComboBox.addItem(publisher.getName() + " (" + publisher.getNit() + ")");
+            purchasePublisherComboBox.addItem(publisher.getName() + " (" + publisher.getNit() + ")");
         }
-        
-        this.publishers.add(new Publisher(nit, name, address, manager));
-        
-        publisherComboBox.addItem(name + " (" + nit + ")");
-        purchasePublisherComboBox.addItem(name + " (" + nit + ")");
     }//GEN-LAST:event_createPublisherButtonActionPerformed
 
     private void addAuthorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAuthorButtonActionPerformed
         // TODO add your handling code here:
         String author = authorComboBox.getItemAt(authorComboBox.getSelectedIndex());
-        jTextArea2.append(author + "\n");
+        selectedAuthorsTextArea.append(author + "\n");
     }//GEN-LAST:event_addAuthorButtonActionPerformed
 
     private void removeAuthorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeAuthorButtonActionPerformed
         // TODO add your handling code here:
         String author = authorComboBox.getItemAt(authorComboBox.getSelectedIndex());
-        jTextArea2.setText(jTextArea2.getText().replace(author + "\n", ""));
+        selectedAuthorsTextArea.setText(selectedAuthorsTextArea.getText().replace(author + "\n", ""));
     }//GEN-LAST:event_removeAuthorButtonActionPerformed
 
     private void createBookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBookButtonActionPerformed
         // TODO add your handling code here:
         String title = bookTitleTextField.getText();
-        String[] authorsData = jTextArea2.getText().split("\n");
+        String[] authorsData = selectedAuthorsTextArea.getText().split("\n");
         String isbn = isbnTextField.getText();
         String genre = genreComboBox.getItemAt(genreComboBox.getSelectedIndex());
         String format = formatComboBox.getItemAt(formatComboBox.getSelectedIndex());
@@ -1533,31 +1617,31 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private void addStandButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStandButtonActionPerformed
         // TODO add your handling code here:
         String stand = standIdComboBox.getItemAt(standIdComboBox.getSelectedIndex());
-        jTextArea3.append(stand + "\n");
+        selectedStandsTextArea.append(stand + "\n");
     }//GEN-LAST:event_addStandButtonActionPerformed
 
     private void removeStandButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeStandButtonActionPerformed
         // TODO add your handling code here:
         String stand = standIdComboBox.getItemAt(standIdComboBox.getSelectedIndex());
-        jTextArea3.setText(jTextArea3.getText().replace(stand + "\n", ""));
+        selectedStandsTextArea.setText(selectedStandsTextArea.getText().replace(stand + "\n", ""));
     }//GEN-LAST:event_removeStandButtonActionPerformed
 
     private void addPublisherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPublisherButtonActionPerformed
         // TODO add your handling code here:
         String publisher = purchasePublisherComboBox.getItemAt(purchasePublisherComboBox.getSelectedIndex());
-        jTextArea1.append(publisher + "\n");
+        selectedPublishersTextArea.append(publisher + "\n");
     }//GEN-LAST:event_addPublisherButtonActionPerformed
 
     private void removePublisherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removePublisherButtonActionPerformed
         // TODO add your handling code here:
         String publisher = purchasePublisherComboBox.getItemAt(purchasePublisherComboBox.getSelectedIndex());
-        jTextArea1.setText(jTextArea1.getText().replace(publisher + "\n", ""));
+        selectedPublishersTextArea.setText(selectedPublishersTextArea.getText().replace(publisher + "\n", ""));
     }//GEN-LAST:event_removePublisherButtonActionPerformed
 
     private void purchaseStandButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseStandButtonActionPerformed
         // TODO add your handling code here:
-        String[] standIds = jTextArea3.getText().split("\n");
-        String[] publishersData = jTextArea1.getText().split("\n");
+        String[] standIds = selectedStandsTextArea.getText().split("\n");
+        String[] publishersData = selectedPublishersTextArea.getText().split("\n");
         
         ArrayList<Stand> stands = new ArrayList<>();
         for (String standId : standIds) {
@@ -1770,6 +1854,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JButton addAuthorButton;
     private javax.swing.JButton addPublisherButton;
     private javax.swing.JButton addStandButton;
+    private javax.swing.JPanel additionalQueriesPanel;
     private javax.swing.JLabel audiobookDurationLabel;
     private javax.swing.JLabel audiobookNarratorLabel;
     private javax.swing.JRadioButton audiobookRadioButton;
@@ -1777,11 +1862,13 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> authorComboBox;
     private javax.swing.JComboBox<String> authorSearchComboBox;
     private javax.swing.JLabel bookAuthorsLabel;
+    private javax.swing.JPanel bookConsultPanel;
     private javax.swing.JComboBox<String> bookFilterComboBox;
     private javax.swing.JLabel bookFilterLabel;
     private javax.swing.JLabel bookFormatLabel;
     private javax.swing.JLabel bookGenreLabel;
     private javax.swing.JLabel bookIsbnLabel;
+    private javax.swing.JPanel bookPanel;
     private javax.swing.JLabel bookPublisherLabel;
     private javax.swing.JLabel bookSearchAuthorLabel;
     private javax.swing.JLabel bookSearchFormatLabel;
@@ -1813,18 +1900,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> genreComboBox;
     private javax.swing.JTextField isbnTextField;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -1832,19 +1908,18 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
+    private javax.swing.JTabbedPane mainTabbedPane;
     private javax.swing.JComboBox<String> managerComboBox;
     private javax.swing.JComboBox<String> narratorComboBox;
     private javax.swing.JTextField pagesTextField;
+    private javax.swing.JPanel personConsultPanel;
     private javax.swing.JTextField personFirstNameTextField;
     private javax.swing.JLabel personIdLabel;
     private javax.swing.JTextField personIdTextField;
     private javax.swing.JLabel personLastNameLabel;
     private javax.swing.JTextField personLastNameTextField;
     private javax.swing.JLabel personNameLabel;
+    private javax.swing.JPanel personPanel;
     private javax.swing.JTable personTable;
     private javax.swing.JLabel printedCopiesLabel;
     private javax.swing.JLabel printedPagesLabel;
@@ -1852,11 +1927,13 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel publisherAddressLabel;
     private javax.swing.JTextField publisherAddressTextField;
     private javax.swing.JComboBox<String> publisherComboBox;
+    private javax.swing.JPanel publisherConsultPanel;
     private javax.swing.JLabel publisherManagerLabel;
     private javax.swing.JLabel publisherNameLabel;
     private javax.swing.JTextField publisherNameTextField;
     private javax.swing.JLabel publisherNitLabel;
     private javax.swing.JTextField publisherNitTextField;
+    private javax.swing.JPanel publisherPanel;
     private javax.swing.JTable publisherTable;
     private javax.swing.JComboBox<String> purchasePublisherComboBox;
     private javax.swing.JLabel purchasePublishersLabel;
@@ -1867,11 +1944,18 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JButton removeStandButton;
     private javax.swing.JButton searchBooksByAuthorButton;
     private javax.swing.JButton searchBooksByFormatButton;
+    private javax.swing.JScrollPane selectedAuthorsScrollPane;
+    private javax.swing.JTextArea selectedAuthorsTextArea;
+    private javax.swing.JTextArea selectedPublishersTextArea;
+    private javax.swing.JTextArea selectedStandsTextArea;
+    private javax.swing.JPanel standConsultPanel;
     private javax.swing.JComboBox<String> standIdComboBox;
     private javax.swing.JLabel standIdLabel;
     private javax.swing.JTextField standIdTextField;
+    private javax.swing.JPanel standPanel;
     private javax.swing.JLabel standPriceLabel;
     private javax.swing.JTextField standPriceTextField;
+    private javax.swing.JPanel standPurchasePanel;
     private javax.swing.JTable standTable;
     private javax.swing.JLabel topAuthorsLabel;
     private javax.swing.JTable topAuthorsTable;
