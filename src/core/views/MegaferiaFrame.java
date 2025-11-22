@@ -1422,10 +1422,10 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
-            // Limpiar campos
+
             standIdTextField.setText("");
             standPriceTextField.setText("");
-            // Agregar al comboBox
+
             Stand stand = (Stand) response.getObject();
             standIdComboBox.addItem(stand.getId() + "");
         }
@@ -1445,12 +1445,10 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            // limpiar campos
             personIdTextField.setText("");
             personFirstNameTextField.setText("");
             personLastNameTextField.setText("");
 
-            // agregar al comboBox (solo si éxito)
             Author author = (Author) response.getObject();
 
             authorComboBox.addItem(author.getId() + " - " + author.getFirstname() + " " + author.getLastname());
@@ -1474,14 +1472,12 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            // limpiar campos
             personIdTextField.setText("");
             personFirstNameTextField.setText("");
             personLastNameTextField.setText("");
 
             Manager manager = (Manager) response.getObject();
 
-            // actualizar comboboxes
             managerComboBox.addItem(manager.getId() + " - " + manager.getFirstname() + " " + manager.getLastname());
         }
     }//GEN-LAST:event_createManagerButtonActionPerformed
@@ -1491,7 +1487,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         String firstName = personFirstNameTextField.getText();
         String lastName = personLastNameTextField.getText();
 
-        // LLamar al controlador correcto
         Response response = NarratorController.createNarrator(idStr, firstName, lastName);
 
         if (response.getStatus() >= 500) {
@@ -1503,15 +1498,12 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            // limpiar campos
             personIdTextField.setText("");
             personFirstNameTextField.setText("");
             personLastNameTextField.setText("");
 
-            // obtener narrador
             Narrator narrator = (Narrator) response.getObject();
 
-            // actualizar combobox (solo si éxito)
             narratorComboBox.addItem(narrator.getId() + " - " + narrator.getFirstname() + " " + narrator.getLastname());
         }
     }//GEN-LAST:event_createNarratorButtonActionPerformed
@@ -1521,14 +1513,11 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         String name = publisherNameTextField.getText();
         String address = publisherAddressTextField.getText();
 
-        // Obtener ID del gerente
         String[] managerData = managerComboBox.getItemAt(managerComboBox.getSelectedIndex()).split(" - ");
         String managerId = managerData[0];
 
-        // LLAMAR AL CONTROLADOR
         Response response = PublisherController.createPublisher(nit, name, address, managerId);
 
-        // MANEJO DE ERRORES
         if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
 
@@ -1538,16 +1527,13 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            // LIMPIAR CAMPOS
             publisherNitTextField.setText("");
             publisherNameTextField.setText("");
             publisherAddressTextField.setText("");
             managerComboBox.setSelectedIndex(0);
 
-            // OBTENER OBJETO CREADO (CLON)
             Publisher publisher = (Publisher) response.getObject();
 
-            // ACTUALIZAR COMBOBOXES
             publisherComboBox.addItem(publisher.getName() + " (" + publisher.getNit() + ")");
             purchasePublisherComboBox.addItem(publisher.getName() + " (" + publisher.getNit() + ")");
         }
@@ -1584,7 +1570,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 pagesTextField.getText(),
                 copiesTextField.getText());
 
-        // Manejo de respuesta
         if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(this, response.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } else if (response.getStatus() >= 400) {
@@ -1592,7 +1577,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            // OBTENER OBJETO CREADO (CLON)
             Book book = (Book) response.getObject();
 
             bookTitleTextField.setText("");
@@ -1639,7 +1623,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, response.getMessage(),
                     "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            // Actualiza text area con stands
             selectedStandsTextArea.setText("");
             for (String s : StandPurchaseController.getSelectedStands()) {
                 selectedStandsTextArea.append(s + "\n");
@@ -1664,7 +1647,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, response.getMessage(),
                     "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            // Actualiza text area con stands
             selectedStandsTextArea.setText("");
             for (String s : StandPurchaseController.getSelectedStands()) {
                 selectedStandsTextArea.append(s + "\n");
@@ -1689,7 +1671,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, response.getMessage(),
                     "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            // Actualizar text area con editoriales
             selectedPublishersTextArea.setText("");
             for (String s : EditorialSelectionController.getSelectedEditorials()) {
                 selectedPublishersTextArea.append(s + "\n");
@@ -1714,7 +1695,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, response.getMessage(),
                     "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            // Actualizar text area con editoriales
             selectedPublishersTextArea.setText("");
             for (String s : EditorialSelectionController.getSelectedEditorials()) {
                 selectedPublishersTextArea.append(s + "\n");
@@ -1724,14 +1704,11 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
     private void purchaseStandButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseStandButtonActionPerformed
 
-        // obtener las listas temporales desde los controladores
         ArrayList<String> standsSeleccionados = StandPurchaseController.getSelectedStands();
         ArrayList<String> editorialesSeleccionadas = EditorialSelectionController.getSelectedEditorials();
 
-        // llamar al controlador real de compra
-        Response response = StandController.buyStands(standsSeleccionados,editorialesSeleccionadas);
+        Response response = StandController.buyStands(standsSeleccionados, editorialesSeleccionadas);
 
-        // mostrar notificación
         if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(this, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
 
@@ -1741,11 +1718,9 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            // limpiar selección temporal
             StandPurchaseController.clearSelection();
             EditorialSelectionController.clear();
 
-            // borrar textAreas de la vista
             selectedStandsTextArea.setText("");
             selectedPublishersTextArea.setText("");
         }
@@ -1775,13 +1750,11 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
         Response resp = PersonController.listaPersonas();
 
-        // Revisar estado
         if (resp.getStatus() != Status.OK) {
             JOptionPane.showMessageDialog(this, resp.getMessage());
             return;
         }
 
-        // Obtener filas
         ArrayList<Object[]> rows = (ArrayList<Object[]>) resp.getObject();
 
         for (Object[] row : rows) {
@@ -1790,23 +1763,19 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_consultPeopleButtonActionPerformed
 
     private void consultStandsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultStandsButtonActionPerformed
-        // Obtener el modelo de la tabla
+
         DefaultTableModel model = (DefaultTableModel) standTable.getModel();
 
-        // Limpiar las filas actuales
         model.setRowCount(0);
 
-        // Llamar al controlador
         Response resp = StandController.listaStands();
 
-        // Verificar el estado
         if (resp.getStatus() != Status.OK) {
-            // Si hubo error o no hay datos, mostramos el mensaje
+
             JOptionPane.showMessageDialog(this, resp.getMessage());
             return;
         }
 
-        // Obtener las filas desde el Response
         ArrayList<Object[]> rows = (ArrayList<Object[]>) resp.getObject();
 
         for (Object[] row : rows) {
@@ -1861,20 +1830,16 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
         String format = formatSearchComboBox.getItemAt(formatSearchComboBox.getSelectedIndex());
 
-        // Limpiar tabla
         DefaultTableModel model = (DefaultTableModel) authorBooksTable.getModel();
         model.setRowCount(0);
 
-        // Llamar al controlador
         Response resp = BookController.getBooksByFormat(format);
 
-        // Manejar respuesta
         if (resp.getStatus() != Status.OK) {
             JOptionPane.showMessageDialog(this, resp.getMessage());
             return;
         }
 
-        // Obtener filas 
         ArrayList<Object[]> rows = (ArrayList<Object[]>) resp.getObject();
 
         for (Object[] row : rows) {
@@ -1887,7 +1852,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) topAuthorsTable.getModel();
         model.setRowCount(0);
 
-        // Llamar al controlador
         Response resp = AuthorController.getAuthorsWithMaxPublishers();
 
         if (resp.getStatus() != Status.OK) {

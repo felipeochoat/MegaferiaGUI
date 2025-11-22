@@ -12,6 +12,7 @@ import core.models.repositories.IPersonRepository;
 import core.models.repositories.IPublisherRepository;
 import core.models.repositories.IRepositoryProvider;
 import core.models.repositories.RepositoryProvider;
+import java.util.ArrayList;
 
 /**
  *
@@ -78,6 +79,59 @@ public class PublisherController {
 
         } catch (Exception ex) {
             return new Response("Error inesperado", Status.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    public static Response listaEditoriales() {
+
+        try {
+            ArrayList<Publisher> publishers = publisherRepository.getAll();
+            ArrayList<Object[]> rows = new ArrayList<>();
+
+            
+            if (publishers == null || publishers.isEmpty()) {
+                return new Response("No hay editoriales registradas.", Status.NOT_FOUND);
+            }
+
+            ArrayList<Publisher> publisherCopies = new ArrayList<>();
+            try {
+                for (Publisher publisher : publishers) {
+                    publisherCopies.add(publisher.clone());
+                }
+            } catch (CloneNotSupportedException cloneException) {
+                return new Response("Error al copiar editoriales.", Status.INTERNAL_SERVER_ERROR);
+            }
+
+            
+            for (Publisher publisher : publisherCopies) {
+                Object[] fila = new Object[5];
+                fila[0] = publisher.getNit();
+                fila[1] = publisher.getName();
+                fila[2] = publisher.getAddress();
+                fila[3] = publisher.getManager() != null ? publisher.getManager().getFullname() : "-";
+                fila[4] = publisher.getStandQuantity();
+                rows.add(fila);
+            }
+
+            
+            for (int i = 0; i < rows.size() - 1; i++) {
+                for (int j = i + 1; j < rows.size(); j++) {
+
+                    String nit1 = rows.get(i)[0].toString();
+                    String nit2 = rows.get(j)[0].toString();
+
+                    if (nit1.compareTo(nit2) > 0) {
+                        Object[] temp = rows.get(i);
+                        rows.set(i, rows.get(j));
+                        rows.set(j, temp);
+                    }
+                }
+            }
+
+            return new Response("Editoriales obtenidas correctamente.", Status.OK, rows);
+
+        } catch (Exception e) {
+            return new Response("Error inesperado al consultar editoriales.", Status.INTERNAL_SERVER_ERROR);
         }
     }
 }

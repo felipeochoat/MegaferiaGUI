@@ -8,9 +8,7 @@ public final class RepositoryProvider {
 
     private static IRepositoryProvider provider = new DefaultRepositoryProvider();
 
-    private RepositoryProvider() {
-    }
-
+   
     public static IRepositoryProvider getProvider() {
         return provider;
     }

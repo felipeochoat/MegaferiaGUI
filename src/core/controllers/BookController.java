@@ -226,5 +226,166 @@ public class BookController {
         } catch (Exception e) {
             return new Response("Error inesperado al crear libro.", Status.INTERNAL_SERVER_ERROR);
         }
-    }   
+    }
+    
+    public static Response listBooksByType(String filter) {
+        try {
+            if (filter == null || filter.trim().isEmpty()) {
+                return new Response("Debe seleccionar un tipo de libro.", Status.BAD_REQUEST);
+            }
+
+            ArrayList<Book> books = new ArrayList<>(bookRepository.getAll());
+            ArrayList<Book> filtered = new ArrayList<>();
+
+            switch (filter) {
+                case "Libros Impresos" -> {
+                    for (Book b : books) {
+                        if (b instanceof PrintedBook) {
+                            filtered.add(b);
+                        }
+                    }
+                }
+                case "Libros Digitales" -> {
+                    for (Book b : books) {
+                        if (b instanceof DigitalBook) {
+                            filtered.add(b);
+                        }
+                    }
+                }
+                case "Audiolibros" -> {
+                    for (Book b : books) {
+                        if (b instanceof Audiobook) {
+                            filtered.add(b);
+                        }
+                    }
+                }
+                case "Todos los Libros" ->
+                    filtered.addAll(books);
+                default -> {
+                    return new Response("Filtro de búsqueda inválido.", Status.BAD_REQUEST);
+                }
+            }
+
+            if (filtered.isEmpty()) {
+                return new Response("No hay libros para mostrar.", Status.NOT_FOUND);
+            }
+
+            filtered.sort((a, b) -> a.getIsbn().compareTo(b.getIsbn()));
+
+            ArrayList<Book> bookCopies = new ArrayList<>();
+            try {
+                for (Book book : filtered) {
+                    bookCopies.add(book.clone());
+                }
+            } catch (CloneNotSupportedException cloneException) {
+                return new Response("Error al copiar libros.", Status.INTERNAL_SERVER_ERROR);
+            }
+
+            ArrayList<Object[]> rows = mapBooksToRows(bookCopies);
+
+            return new Response("Libros obtenidos correctamente.", Status.OK, rows);
+
+        } catch (Exception e) {
+            return new Response("Error inesperado al consultar libros.", Status.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    
+    private static ArrayList<Object[]> mapBooksToRows(ArrayList<Book> books) {
+        ArrayList<Object[]> rows = new ArrayList<>();
+
+        for (Book book : books) {
+
+            String authors = "";
+            if (!book.getAuthors().isEmpty()) {
+                authors = book.getAuthors().get(0).getFullname();
+                for (int i = 1; i < book.getAuthors().size(); i++) {
+                    authors += ", " + book.getAuthors().get(i).getFullname();
+                }
+            }
+
+            Object[] row;
+
+            if (book instanceof PrintedBook printed) {
+                row = new Object[]{
+                    printed.getTitle(), authors, printed.getIsbn(), printed.getGenre(),
+                    printed.getFormat(), printed.getValue(), printed.getPublisher().getName(),
+                    printed.getCopies(), printed.getPages(), "-", "-", "-"
+                };
+
+            } else if (book instanceof DigitalBook digital) {
+                row = new Object[]{
+                    digital.getTitle(), authors, digital.getIsbn(), digital.getGenre(),
+                    digital.getFormat(), digital.getValue(), digital.getPublisher().getName(),
+                    "-", "-", digital.hasHyperlink() ? digital.getHyperlink() : "No",
+                    "-", "-"
+                };
+
+            } else { // Audiobook
+                Audiobook audio = (Audiobook) book;
+                row = new Object[]{
+                    audio.getTitle(), authors, audio.getIsbn(), audio.getGenre(),
+                    audio.getFormat(), audio.getValue(), audio.getPublisher().getName(),
+                    "-", "-", "-", audio.getNarrador().getFullname(), audio.getDuration()
+                };
+            }
+
+            
+            boolean exists = false;
+            for (Object[] r : rows) {
+                if (r[2].equals(book.getIsbn())) { 
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (!exists) {
+                rows.add(row);
+            }
+        }
+
+        return rows;
+    }
+
+    
+    public static Response getBooksByFormat(String format) {
+        try {
+            if (format == null || format.trim().isEmpty()) {
+                return new Response("Debe seleccionar un formato.", Status.BAD_REQUEST);
+            }
+
+            String fmt = format.trim();
+
+            ArrayList<Book> filteredBooks = new ArrayList<>();
+
+            for (Book book : bookRepository.getAll()) {
+                if (book.getFormat().equalsIgnoreCase(fmt)) {
+                    filteredBooks.add(book);
+                }
+            }
+
+            if (filteredBooks.isEmpty()) {
+                return new Response("No hay libros con ese formato.", Status.NOT_FOUND);
+            }
+
+            
+            filteredBooks.sort((a, b) -> a.getIsbn().compareTo(b.getIsbn()));
+
+            ArrayList<Book> bookCopies = new ArrayList<>();
+            try {
+                for (Book book : filteredBooks) {
+                    bookCopies.add(book.clone());
+                }
+            } catch (CloneNotSupportedException cloneException) {
+                return new Response("Error al copiar libros.", Status.INTERNAL_SERVER_ERROR);
+            }
+
+            ArrayList<Object[]> rows = mapBooksToRows(bookCopies);
+
+            return new Response("Libros obtenidos correctamente.", Status.OK, rows);
+
+        } catch (Exception e) {
+            return new Response("Error inesperado al consultar libros por formato.", Status.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
