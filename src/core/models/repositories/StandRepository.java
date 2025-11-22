@@ -12,19 +12,8 @@ import java.util.ArrayList;
  *
  * @author martin
  */
-public class StandRepository implements IStandRepository {
-    
-    private static IRepositoryProvider repositoryProvider = RepositoryProvider.getProvider();
-    private static IStandRepository standRepository = repositoryProvider.getStandRepository();
-    private static IPublisherRepository publisherRepository = repositoryProvider.getPublisherRepository();
 
-    public static void setRepositoryProvider(IRepositoryProvider customProvider) {
-        if (customProvider != null) {
-            repositoryProvider = customProvider;
-            standRepository = customProvider.getStandRepository();
-            publisherRepository = customProvider.getPublisherRepository();
-        }
-    }
+public class StandRepository implements IStandRepository {
 
     private final Storage storage = Storage.getInstance();
 

@@ -8,6 +8,7 @@ package core.models.repositories;
  *
  * @author martin
  */
+
 public interface IRepositoryProvider {
     IBookRepository getBookRepository();
 
