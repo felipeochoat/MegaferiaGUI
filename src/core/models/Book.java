@@ -64,4 +64,7 @@ public abstract class Book {
         return publisher;
     }
     
+    @Override
+    public abstract Book clone() throws CloneNotSupportedException;
+    
 }

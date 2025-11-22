@@ -26,4 +26,9 @@ public class Manager extends Person {
         this.publisher = publisher;
     }
     
+    @Override
+    public Manager clone() throws CloneNotSupportedException{
+        return new Manager(this.id, this.firstname, this.lastname);
+    }
+    
 }

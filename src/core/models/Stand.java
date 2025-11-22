@@ -43,4 +43,33 @@ public class Stand {
         return this.publishers.size();
     }
     
+    @Override
+    public Stand clone () throws CloneNotSupportedException {
+        Stand copy = new Stand(this.id, this.price);
+
+        for (Publisher publisher : this.publishers) {
+            Publisher publisherCopy;
+
+            if (publisher.getManager() != null) {
+                publisherCopy = new Publisher(
+                        publisher.getNit(),
+                        publisher.getName(),
+                        publisher.getAddress(),
+                        publisher.getManager().clone()
+                );
+            } else {
+                publisherCopy = new Publisher(
+                        publisher.getNit(),
+                        publisher.getName(),
+                        publisher.getAddress(),
+                        null
+                );
+            }
+
+            copy.addPublisher(publisherCopy);
+        }
+
+        return copy;
+    }
+    
 }

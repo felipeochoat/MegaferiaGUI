@@ -29,4 +29,9 @@ public class Narrator extends Person {
         this.books.add(book);
     }
     
+    @Override
+    public Narrator clone() throws CloneNotSupportedException{
+        return new Narrator (this.id, this.firstname, this.lastname);
+    }
+    
 }

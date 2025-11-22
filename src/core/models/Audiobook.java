@@ -31,4 +31,27 @@ public class Audiobook extends Book {
         return narrador;
     }
     
+    
+    @Override
+    public Audiobook clone() throws CloneNotSupportedException {
+        ArrayList<Author> authorCopies = new ArrayList<>();
+        for (Author author : this.authors) {
+            authorCopies.add(author.clone());
+        }
+
+        Publisher publisherCopy = this.publisher != null ? this.publisher.clone() : null;
+        Narrator narratorCopy = this.narrador != null ? this.narrador.clone() : null;
+
+        return new Audiobook(
+                this.title,
+                authorCopies,
+                this.isbn,
+                this.genre,
+                this.format,
+                this.value,
+                publisherCopy,
+                this.duration,
+                narratorCopy
+        );
+    }
 }

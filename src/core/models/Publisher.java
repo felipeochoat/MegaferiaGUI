@@ -60,4 +60,18 @@ public class Publisher {
         this.stands.add(stand);
     }
     
+    @Override
+    public Publisher clone() throws CloneNotSupportedException {
+        Manager managerCopy = this.manager != null ? this.manager.clone() : null;
+
+        Publisher copy = new Publisher(this.nit, this.name, this.address, managerCopy);
+
+        for (Stand stand : this.stands) {
+            Stand standCopy = new Stand(stand.getId(), stand.getPrice());
+            copy.addStand(standCopy);
+        }
+
+        return copy;
+    }
+    
 }

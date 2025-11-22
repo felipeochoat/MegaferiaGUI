@@ -38,4 +38,37 @@ public class DigitalBook extends Book {
         return hyperlink;
     }
     
+    @Override
+    public DigitalBook clone() throws CloneNotSupportedException {
+        ArrayList<Author> authorCopies = new ArrayList<>();
+        for (Author author : this.authors) {
+            authorCopies.add(author.clone());
+        }
+
+        Publisher publisherCopy = this.publisher != null ? this.publisher.clone() : null;
+
+        if (this.hyperlink == null) {
+            return new DigitalBook(
+                    this.title,
+                    authorCopies,
+                    this.isbn,
+                    this.genre,
+                    this.format,
+                    this.value,
+                    publisherCopy
+            );
+        } else {
+            return new DigitalBook(
+                    this.title,
+                    authorCopies,
+                    this.isbn,
+                    this.genre,
+                    this.format,
+                    this.value,
+                    publisherCopy,
+                    this.hyperlink
+            );
+        }
+    }
+    
 }

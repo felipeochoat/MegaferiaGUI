@@ -31,4 +31,26 @@ public class PrintedBook extends Book {
         return copies;
     }
     
+    @Override
+    public PrintedBook clone() throws CloneNotSupportedException {
+        ArrayList<Author> authorCopies = new ArrayList<>();
+        for (Author author : this.authors) {
+            authorCopies.add(author.clone());
+        }
+
+        Publisher publisherCopy = this.publisher != null ? this.publisher.clone() : null;
+
+        return new PrintedBook(
+                this.title,
+                authorCopies,
+                this.isbn,
+                this.genre,
+                this.format,
+                this.value,
+                publisherCopy,
+                this.pages,
+                this.copies
+        );
+    }
+    
 }
