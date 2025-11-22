@@ -13,6 +13,11 @@ import core.models.DigitalBook;
 import core.models.Narrator;
 import core.models.PrintedBook;
 import core.models.Publisher;
+import core.models.repositories.IBookRepository;
+import core.models.repositories.IPersonRepository;
+import core.models.repositories.IPublisherRepository;
+import core.models.repositories.IRepositoryProvider;
+import core.models.repositories.RepositoryProvider;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +25,20 @@ import java.util.ArrayList;
  * @author famil
  */
 public class BookController {
+    
+    private static IRepositoryProvider repositoryProvider = RepositoryProvider.getProvider();
+    private static IBookRepository bookRepository = repositoryProvider.getBookRepository();
+    private static IPersonRepository personRepository = repositoryProvider.getPersonRepository();
+    private static IPublisherRepository publisherRepository = repositoryProvider.getPublisherRepository();
+
+    public static void setRepositoryProvider(IRepositoryProvider customProvider) {
+        if (customProvider != null) {
+            repositoryProvider = customProvider;
+            bookRepository = customProvider.getBookRepository();
+            personRepository = customProvider.getPersonRepository();
+            publisherRepository = customProvider.getPublisherRepository();
+        }
+    }
     
  public static Response createBook(
             String title, String authorsV, String isbn, String genre, String format, String valueV, String publisherV,

@@ -7,12 +7,26 @@ package core.controllers;
 import core.controllers.utils.Response;
 import core.controllers.utils.Status;
 import core.models.Manager;
+import core.models.repositories.IPersonRepository;
+import core.models.repositories.IRepositoryProvider;
+import core.models.repositories.RepositoryProvider;
 
 /**
  *
  * @author famil
  */
 public class ManagerController {
+    
+    private static IRepositoryProvider repositoryProvider = RepositoryProvider.getProvider();
+    private static IPersonRepository personRepository = repositoryProvider.getPersonRepository();
+
+    public static void setRepositoryProvider(IRepositoryProvider customProvider) {
+        if (customProvider != null) {
+            repositoryProvider = customProvider;
+            personRepository = customProvider.getPersonRepository();
+        }
+    }
+    
     public static Response createManager(String id, String firstName, String lastName) {
 
         try {

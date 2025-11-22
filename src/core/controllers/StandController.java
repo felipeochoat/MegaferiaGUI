@@ -7,12 +7,30 @@ package core.controllers;
 import core.controllers.utils.Response;
 import core.controllers.utils.Status;
 import core.models.Stand;
+import core.models.repositories.IPublisherRepository;
+import core.models.repositories.IRepositoryProvider;
+import core.models.repositories.IStandRepository;
+import core.models.repositories.RepositoryProvider;
 
 /**
  *
  * @author famil
  */
 public class StandController {
+    
+    private static IRepositoryProvider repositoryProvider = RepositoryProvider.getProvider();
+    private static IStandRepository standRepository = repositoryProvider.getStandRepository();
+    private static IPublisherRepository publisherRepository = repositoryProvider.getPublisherRepository();
+
+    public static void setRepositoryProvider(IRepositoryProvider customProvider) {
+        if (customProvider != null) {
+            repositoryProvider = customProvider;
+            standRepository = customProvider.getStandRepository();
+            publisherRepository = customProvider.getPublisherRepository();
+        }
+    }
+    
+    
     public static Response createStand(String id, String price) {
         try {
             long idLong;
