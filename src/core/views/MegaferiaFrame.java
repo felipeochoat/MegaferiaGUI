@@ -4,25 +4,29 @@
  */
 package core.views;
 
-import core.models.Stand;
-import core.models.Publisher;
-import core.models.PrintedBook;
-import core.models.Narrator;
-import core.models.Manager;
-import core.models.Book;
-import core.models.DigitalBook;
-import core.models.Author;
-import core.models.Audiobook;
-import com.formdev.flatlaf.FlatDarkLaf;
 import core.controllers.AuthorController;
+import core.controllers.BookController;
+import core.controllers.EditorialSelectionController;
 import core.controllers.ManagerController;
 import core.controllers.NarratorController;
+import core.controllers.PersonController;
 import core.controllers.PublisherController;
 import core.controllers.StandController;
+import core.controllers.StandPurchaseController;
 import core.controllers.utils.Response;
+import core.controllers.utils.Status;
+import core.models.Audiobook;
+import core.models.Author;
+import core.models.Book;
+import core.models.DigitalBook;
+import core.models.Manager;
+import core.models.Narrator;
+import core.models.PrintedBook;
+import core.models.Publisher;
+import core.models.Stand;
+import core.models.storage.Storage;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,25 +36,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MegaferiaFrame extends javax.swing.JFrame {
 
-    private ArrayList<Stand> stands;
-    private ArrayList<Author> authors;
-    private ArrayList<Manager> managers;
-    private ArrayList<Narrator> narrators;
-    private ArrayList<Publisher> publishers;
-    private ArrayList<Book> books;
-    
     /**
      * Creates new form MegaferiaFrame
      */
     public MegaferiaFrame() {
         initComponents();
         setLocationRelativeTo(null);
-        this.stands = new ArrayList<>();
-        this.authors = new ArrayList<>();
-        this.managers = new ArrayList<>();
-        this.narrators = new ArrayList<>();
-        this.publishers = new ArrayList<>();
-        this.books = new ArrayList<>();
     }
 
     /**
@@ -62,7 +53,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        mainPanel = new javax.swing.JPanel();
         mainTabbedPane = new javax.swing.JTabbedPane();
         standPanel = new javax.swing.JPanel();
         standPriceLabel = new javax.swing.JLabel();
@@ -80,6 +71,16 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         personLastNameLabel = new javax.swing.JLabel();
         createManagerButton = new javax.swing.JButton();
         createNarratorButton = new javax.swing.JButton();
+        publisherPanel = new javax.swing.JPanel();
+        publisherNitLabel = new javax.swing.JLabel();
+        publisherNitTextField = new javax.swing.JTextField();
+        publisherNameTextField = new javax.swing.JTextField();
+        publisherNameLabel = new javax.swing.JLabel();
+        publisherAddressLabel = new javax.swing.JLabel();
+        publisherAddressTextField = new javax.swing.JTextField();
+        createPublisherButton = new javax.swing.JButton();
+        publisherManagerLabel = new javax.swing.JLabel();
+        managerComboBox = new javax.swing.JComboBox<>();
         bookPanel = new javax.swing.JPanel();
         bookTitleLabel = new javax.swing.JLabel();
         bookTitleTextField = new javax.swing.JTextField();
@@ -122,26 +123,26 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         addPublisherButton = new javax.swing.JButton();
         purchaseStandButton = new javax.swing.JButton();
         removePublisherButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        selectedPublishersScrollPane = new javax.swing.JScrollPane();
         selectedPublishersTextArea = new javax.swing.JTextArea();
         addStandButton = new javax.swing.JButton();
         removeStandButton = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        selectedStandsScrollPane = new javax.swing.JScrollPane();
         selectedStandsTextArea = new javax.swing.JTextArea();
         publisherConsultPanel = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
+        publisherTableScrollPane = new javax.swing.JScrollPane();
         publisherTable = new javax.swing.JTable();
         consultPublishersButton = new javax.swing.JButton();
         personConsultPanel = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
+        personTableScrollPane = new javax.swing.JScrollPane();
         personTable = new javax.swing.JTable();
         consultPeopleButton = new javax.swing.JButton();
         standConsultPanel = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
+        standTableScrollPane = new javax.swing.JScrollPane();
         standTable = new javax.swing.JTable();
         consultStandsButton = new javax.swing.JButton();
         bookConsultPanel = new javax.swing.JPanel();
-        jScrollPane7 = new javax.swing.JScrollPane();
+        bookTableScrollPane = new javax.swing.JScrollPane();
         bookTable = new javax.swing.JTable();
         consultBooksButton = new javax.swing.JButton();
         bookFilterComboBox = new javax.swing.JComboBox<>();
@@ -151,25 +152,15 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         authorSearchComboBox = new javax.swing.JComboBox<>();
         bookSearchAuthorLabel = new javax.swing.JLabel();
         searchBooksByAuthorButton = new javax.swing.JButton();
-        jScrollPane8 = new javax.swing.JScrollPane();
+        authorBooksScrollPane = new javax.swing.JScrollPane();
         authorBooksTable = new javax.swing.JTable();
         bookSearchFormatLabel = new javax.swing.JLabel();
         formatSearchComboBox = new javax.swing.JComboBox<>();
         searchBooksByFormatButton = new javax.swing.JButton();
         topAuthorsLabel = new javax.swing.JLabel();
-        jScrollPane9 = new javax.swing.JScrollPane();
+        topAuthorsScrollPane = new javax.swing.JScrollPane();
         topAuthorsTable = new javax.swing.JTable();
         consultTopAuthorsButton = new javax.swing.JButton();
-        publisherPanel = new javax.swing.JPanel();
-        publisherNitLabel = new javax.swing.JLabel();
-        publisherNitTextField = new javax.swing.JTextField();
-        publisherNameTextField = new javax.swing.JTextField();
-        publisherNameLabel = new javax.swing.JLabel();
-        publisherAddressLabel = new javax.swing.JLabel();
-        publisherAddressTextField = new javax.swing.JTextField();
-        createPublisherButton = new javax.swing.JButton();
-        publisherManagerLabel = new javax.swing.JLabel();
-        managerComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -326,6 +317,105 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
         mainTabbedPane.addTab("Persona", personPanel);
 
+        publisherNitLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherNitLabel.setText("NIT");
+
+        publisherNitTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherNitTextField.setToolTipText("");
+        publisherNitTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                publisherNitTextFieldActionPerformed(evt);
+            }
+        });
+
+        publisherNameTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherNameTextField.setToolTipText("");
+        publisherNameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                publisherNameTextFieldActionPerformed(evt);
+            }
+        });
+
+        publisherNameLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherNameLabel.setText("Nombre");
+
+        publisherAddressLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherAddressLabel.setText("Dirección");
+
+        publisherAddressTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherAddressTextField.setToolTipText("");
+        publisherAddressTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                publisherAddressTextFieldActionPerformed(evt);
+            }
+        });
+
+        createPublisherButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        createPublisherButton.setText("Crear");
+        createPublisherButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createPublisherButtonActionPerformed(evt);
+            }
+        });
+
+        publisherManagerLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherManagerLabel.setText("Gerente");
+
+        managerComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        managerComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno..." }));
+
+        javax.swing.GroupLayout publisherPanelLayout = new javax.swing.GroupLayout(publisherPanel);
+        publisherPanel.setLayout(publisherPanelLayout);
+        publisherPanelLayout.setHorizontalGroup(
+            publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(publisherPanelLayout.createSequentialGroup()
+                .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(publisherPanelLayout.createSequentialGroup()
+                        .addGap(273, 273, 273)
+                        .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(publisherAddressLabel)
+                            .addComponent(publisherNitLabel)
+                            .addComponent(publisherNameLabel)
+                            .addComponent(publisherManagerLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(publisherNitTextField)
+                            .addComponent(publisherNameTextField)
+                            .addComponent(publisherAddressTextField)
+                            .addComponent(managerComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(publisherPanelLayout.createSequentialGroup()
+                        .addGap(361, 361, 361)
+                        .addComponent(createPublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(285, Short.MAX_VALUE))
+        );
+        publisherPanelLayout.setVerticalGroup(
+            publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(publisherPanelLayout.createSequentialGroup()
+                .addGap(144, 144, 144)
+                .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(publisherPanelLayout.createSequentialGroup()
+                        .addComponent(publisherNitLabel)
+                        .addGap(15, 15, 15)
+                        .addComponent(publisherNameLabel)
+                        .addGap(20, 20, 20)
+                        .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(publisherAddressLabel)
+                            .addComponent(publisherAddressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(publisherPanelLayout.createSequentialGroup()
+                        .addComponent(publisherNitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addComponent(publisherNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(managerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(publisherManagerLabel))
+                .addGap(46, 46, 46)
+                .addComponent(createPublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(175, Short.MAX_VALUE))
+        );
+
+        mainTabbedPane.addTab("Editorial", publisherPanel);
+
         bookTitleLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         bookTitleLabel.setText("Titulo");
 
@@ -367,6 +457,11 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
         authorComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         authorComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno..." }));
+        authorComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                authorComboBoxActionPerformed(evt);
+            }
+        });
 
         bookTypeLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         bookTypeLabel.setText("Tipo");
@@ -644,6 +739,11 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
         standIdComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         standIdComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno..." }));
+        standIdComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                standIdComboBoxActionPerformed(evt);
+            }
+        });
 
         purchasePublisherComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         purchasePublisherComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno..." }));
@@ -682,7 +782,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         selectedPublishersTextArea.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         selectedPublishersTextArea.setRows(5);
         selectedPublishersTextArea.setEnabled(false);
-        jScrollPane1.setViewportView(selectedPublishersTextArea);
+        selectedPublishersScrollPane.setViewportView(selectedPublishersTextArea);
 
         addStandButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         addStandButton.setText("Agregar Stand");
@@ -704,7 +804,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         selectedStandsTextArea.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         selectedStandsTextArea.setRows(5);
         selectedStandsTextArea.setEnabled(false);
-        jScrollPane3.setViewportView(selectedStandsTextArea);
+        selectedStandsScrollPane.setViewportView(selectedStandsTextArea);
 
         javax.swing.GroupLayout standPurchasePanelLayout = new javax.swing.GroupLayout(standPurchasePanel);
         standPurchasePanel.setLayout(standPurchasePanelLayout);
@@ -718,7 +818,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                         .addGap(321, 321, 321))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, standPurchasePanelLayout.createSequentialGroup()
                         .addGroup(standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(selectedPublishersScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(standPurchasePanelLayout.createSequentialGroup()
                                 .addComponent(purchasePublishersLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -735,7 +835,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addComponent(standIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(selectedStandsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(standPurchasePanelLayout.createSequentialGroup()
                         .addComponent(addStandButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -760,13 +860,13 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                             .addComponent(addStandButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(removeStandButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3)
+                        .addComponent(selectedStandsScrollPane)
                         .addGap(8, 8, 8)
                         .addGroup(standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addPublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(removePublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addComponent(selectedPublishersScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(purchaseStandButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59))
@@ -793,7 +893,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(publisherTable);
+        publisherTableScrollPane.setViewportView(publisherTable);
 
         consultPublishersButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         consultPublishersButton.setText("Consultar");
@@ -811,7 +911,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addGroup(publisherConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(publisherConsultPanelLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(publisherTableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(publisherConsultPanelLayout.createSequentialGroup()
                         .addGap(361, 361, 361)
                         .addComponent(consultPublishersButton)))
@@ -821,7 +921,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             publisherConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(publisherConsultPanelLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                .addComponent(publisherTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(consultPublishersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
@@ -848,7 +948,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(personTable);
+        personTableScrollPane.setViewportView(personTable);
 
         consultPeopleButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         consultPeopleButton.setText("Consultar");
@@ -866,7 +966,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addGroup(personConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(personConsultPanelLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(personTableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(personConsultPanelLayout.createSequentialGroup()
                         .addGap(361, 361, 361)
                         .addComponent(consultPeopleButton)))
@@ -876,7 +976,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             personConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(personConsultPanelLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                .addComponent(personTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(consultPeopleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
@@ -903,7 +1003,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane6.setViewportView(standTable);
+        standTableScrollPane.setViewportView(standTable);
 
         consultStandsButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         consultStandsButton.setText("Consultar");
@@ -922,7 +1022,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addGroup(standConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(standConsultPanelLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(standTableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(standConsultPanelLayout.createSequentialGroup()
                         .addGap(361, 361, 361)
                         .addComponent(consultStandsButton)))
@@ -932,7 +1032,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             standConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(standConsultPanelLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                .addComponent(standTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(consultStandsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
@@ -959,7 +1059,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane7.setViewportView(bookTable);
+        bookTableScrollPane.setViewportView(bookTable);
 
         consultBooksButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         consultBooksButton.setText("Consultar");
@@ -971,6 +1071,11 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
         bookFilterComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         bookFilterComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno...", "Libros Impresos", "Libros Digitales", "Audiolibros", "Todos los Libros" }));
+        bookFilterComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookFilterComboBoxActionPerformed(evt);
+            }
+        });
 
         bookFilterLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         bookFilterLabel.setText("Libros");
@@ -986,7 +1091,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                         .addComponent(consultBooksButton))
                     .addGroup(bookConsultPanelLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(bookTableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(bookConsultPanelLayout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(bookFilterLabel)
@@ -1002,7 +1107,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                     .addComponent(bookFilterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bookFilterLabel))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                .addComponent(bookTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(consultBooksButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
@@ -1015,6 +1120,11 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
         authorSearchComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         authorSearchComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno..." }));
+        authorSearchComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                authorSearchComboBoxActionPerformed(evt);
+            }
+        });
 
         bookSearchAuthorLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         bookSearchAuthorLabel.setText("Autor");
@@ -1046,7 +1156,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane8.setViewportView(authorBooksTable);
+        authorBooksScrollPane.setViewportView(authorBooksTable);
 
         bookSearchFormatLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         bookSearchFormatLabel.setText("Formato");
@@ -1084,7 +1194,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane9.setViewportView(topAuthorsTable);
+        topAuthorsScrollPane.setViewportView(topAuthorsTable);
 
         consultTopAuthorsButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         consultTopAuthorsButton.setText("Consultar");
@@ -1122,11 +1232,11 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                     .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(additionalQueriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(authorBooksScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(additionalQueriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(topAuthorsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(topAuthorsLabel)))))
                     .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
                         .addGap(345, 345, 345)
@@ -1138,7 +1248,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(bookSearchTitleLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(43, 43, 43)
                 .addGroup(additionalQueriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bookSearchAuthorLabel)
                     .addComponent(authorSearchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1147,137 +1257,38 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                     .addComponent(formatSearchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchBooksByFormatButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(authorBooksScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(topAuthorsLabel)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(topAuthorsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(consultTopAuthorsButton)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         mainTabbedPane.addTab("Consultas Adicionales", additionalQueriesPanel);
 
-        publisherNitLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherNitLabel.setText("NIT");
-
-        publisherNitTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherNitTextField.setToolTipText("");
-        publisherNitTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                publisherNitTextFieldActionPerformed(evt);
-            }
-        });
-
-        publisherNameTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherNameTextField.setToolTipText("");
-        publisherNameTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                publisherNameTextFieldActionPerformed(evt);
-            }
-        });
-
-        publisherNameLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherNameLabel.setText("Nombre");
-
-        publisherAddressLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherAddressLabel.setText("Dirección");
-
-        publisherAddressTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherAddressTextField.setToolTipText("");
-        publisherAddressTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                publisherAddressTextFieldActionPerformed(evt);
-            }
-        });
-
-        createPublisherButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        createPublisherButton.setText("Crear");
-        createPublisherButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createPublisherButtonActionPerformed(evt);
-            }
-        });
-
-        publisherManagerLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherManagerLabel.setText("Gerente");
-
-        managerComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        managerComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno..." }));
-
-        javax.swing.GroupLayout publisherPanelLayout = new javax.swing.GroupLayout(publisherPanel);
-        publisherPanel.setLayout(publisherPanelLayout);
-        publisherPanelLayout.setHorizontalGroup(
-            publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(publisherPanelLayout.createSequentialGroup()
-                .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(publisherPanelLayout.createSequentialGroup()
-                        .addGap(273, 273, 273)
-                        .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(publisherAddressLabel)
-                            .addComponent(publisherNitLabel)
-                            .addComponent(publisherNameLabel)
-                            .addComponent(publisherManagerLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(publisherNitTextField)
-                            .addComponent(publisherNameTextField)
-                            .addComponent(publisherAddressTextField)
-                            .addComponent(managerComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(publisherPanelLayout.createSequentialGroup()
-                        .addGap(361, 361, 361)
-                        .addComponent(createPublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(285, Short.MAX_VALUE))
-        );
-        publisherPanelLayout.setVerticalGroup(
-            publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(publisherPanelLayout.createSequentialGroup()
-                .addGap(144, 144, 144)
-                .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(publisherPanelLayout.createSequentialGroup()
-                        .addComponent(publisherNitLabel)
-                        .addGap(15, 15, 15)
-                        .addComponent(publisherNameLabel)
-                        .addGap(20, 20, 20)
-                        .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(publisherAddressLabel)
-                            .addComponent(publisherAddressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(publisherPanelLayout.createSequentialGroup()
-                        .addComponent(publisherNitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addComponent(publisherNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(managerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(publisherManagerLabel))
-                .addGap(46, 46, 46)
-                .addComponent(createPublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(175, Short.MAX_VALUE))
-        );
-
-        mainTabbedPane.addTab("Editorial", publisherPanel);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(mainTabbedPane)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING)
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(mainTabbedPane)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -1332,7 +1343,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             digitalLinkTextField.setEnabled(false);
             durationTextField.setEnabled(true);
             narratorComboBox.setEnabled(true);
-            
+
             formatComboBox.removeAllItems();
             formatComboBox.addItem("Seleccione uno...");
             formatComboBox.addItem("MP3");
@@ -1372,7 +1383,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             digitalLinkTextField.setEnabled(false);
             durationTextField.setEnabled(false);
             narratorComboBox.setEnabled(false);
-            
+
             formatComboBox.removeAllItems();
             formatComboBox.addItem("Seleccione uno...");
             formatComboBox.addItem("Pasta dura");
@@ -1389,7 +1400,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             digitalLinkTextField.setEnabled(true);
             durationTextField.setEnabled(false);
             narratorComboBox.setEnabled(false);
-            
+
             formatComboBox.removeAllItems();
             formatComboBox.addItem("Seleccione uno...");
             formatComboBox.addItem("EPUB");
@@ -1402,7 +1413,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private void createStandButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createStandButtonActionPerformed
         String idStr = standIdTextField.getText();
         String priceStr = standPriceTextField.getText();
-        
+
         Response response = StandController.createStand(idStr, priceStr);
 
         if (response.getStatus() >= 500) {
@@ -1411,17 +1422,17 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
-            
+            // Limpiar campos
             standIdTextField.setText("");
             standPriceTextField.setText("");
-            
+            // Agregar al comboBox
             Stand stand = (Stand) response.getObject();
             standIdComboBox.addItem(stand.getId() + "");
         }
     }//GEN-LAST:event_createStandButtonActionPerformed
 
     private void createAuthorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAuthorButtonActionPerformed
-       String idStr = personIdTextField.getText();
+        String idStr = personIdTextField.getText();
         String firstName = personFirstNameTextField.getText();
         String lastName = personLastNameTextField.getText();
 
@@ -1434,12 +1445,12 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            
+            // limpiar campos
             personIdTextField.setText("");
             personFirstNameTextField.setText("");
             personLastNameTextField.setText("");
 
-            
+            // agregar al comboBox (solo si éxito)
             Author author = (Author) response.getObject();
 
             authorComboBox.addItem(author.getId() + " - " + author.getFirstname() + " " + author.getLastname());
@@ -1463,14 +1474,14 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            
+            // limpiar campos
             personIdTextField.setText("");
             personFirstNameTextField.setText("");
             personLastNameTextField.setText("");
 
             Manager manager = (Manager) response.getObject();
 
-            
+            // actualizar comboboxes
             managerComboBox.addItem(manager.getId() + " - " + manager.getFirstname() + " " + manager.getLastname());
         }
     }//GEN-LAST:event_createManagerButtonActionPerformed
@@ -1480,7 +1491,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         String firstName = personFirstNameTextField.getText();
         String lastName = personLastNameTextField.getText();
 
-        
+        // LLamar al controlador correcto
         Response response = NarratorController.createNarrator(idStr, firstName, lastName);
 
         if (response.getStatus() >= 500) {
@@ -1492,15 +1503,15 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            
+            // limpiar campos
             personIdTextField.setText("");
             personFirstNameTextField.setText("");
             personLastNameTextField.setText("");
 
-            
+            // obtener narrador
             Narrator narrator = (Narrator) response.getObject();
 
-            
+            // actualizar combobox (solo si éxito)
             narratorComboBox.addItem(narrator.getId() + " - " + narrator.getFirstname() + " " + narrator.getLastname());
         }
     }//GEN-LAST:event_createNarratorButtonActionPerformed
@@ -1510,14 +1521,14 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         String name = publisherNameTextField.getText();
         String address = publisherAddressTextField.getText();
 
-        
+        // Obtener ID del gerente
         String[] managerData = managerComboBox.getItemAt(managerComboBox.getSelectedIndex()).split(" - ");
         String managerId = managerData[0];
 
-        
+        // LLAMAR AL CONTROLADOR
         Response response = PublisherController.createPublisher(nit, name, address, managerId);
 
-        
+        // MANEJO DE ERRORES
         if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
 
@@ -1527,16 +1538,16 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            
+            // LIMPIAR CAMPOS
             publisherNitTextField.setText("");
             publisherNameTextField.setText("");
             publisherAddressTextField.setText("");
             managerComboBox.setSelectedIndex(0);
 
-            
+            // OBTENER OBJETO CREADO (CLON)
             Publisher publisher = (Publisher) response.getObject();
 
-            
+            // ACTUALIZAR COMBOBOXES
             publisherComboBox.addItem(publisher.getName() + " (" + publisher.getNit() + ")");
             purchasePublisherComboBox.addItem(publisher.getName() + " (" + publisher.getNit() + ")");
         }
@@ -1555,300 +1566,357 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_removeAuthorButtonActionPerformed
 
     private void createBookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBookButtonActionPerformed
-        // TODO add your handling code here:
-        String title = bookTitleTextField.getText();
-        String[] authorsData = selectedAuthorsTextArea.getText().split("\n");
-        String isbn = isbnTextField.getText();
-        String genre = genreComboBox.getItemAt(genreComboBox.getSelectedIndex());
-        String format = formatComboBox.getItemAt(formatComboBox.getSelectedIndex());
-        double value = Double.parseDouble(bookValueTextField.getText());
-        String publisherData = publisherComboBox.getItemAt(publisherComboBox.getSelectedIndex());
-        
-        ArrayList<Author> authors = new ArrayList<>();
-        for (String authorData : authorsData) {
-            long authorId = Long.parseLong(authorData.split(" - ")[0]);
-            for (Author author : this.authors) {
-                if (author.getId() == authorId) {
-                    authors.add(author);
-                }
-            }
+
+        Response response = BookController.createBook(
+                bookTitleTextField.getText(),
+                selectedAuthorsTextArea.getText(),
+                isbnTextField.getText(),
+                genreComboBox.getSelectedItem().toString(),
+                formatComboBox.getSelectedItem().toString(),
+                bookValueTextField.getText(),
+                publisherComboBox.getSelectedItem().toString(),
+                printedRadioButton.isSelected(),
+                digitalRadioButton.isSelected(),
+                audiobookRadioButton.isSelected(),
+                digitalLinkTextField.getText(),
+                durationTextField.getText(),
+                narratorComboBox.getSelectedItem().toString(),
+                pagesTextField.getText(),
+                copiesTextField.getText());
+
+        // Manejo de respuesta
+        if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            // OBTENER OBJETO CREADO (CLON)
+            Book book = (Book) response.getObject();
+
+            bookTitleTextField.setText("");
+            selectedAuthorsTextArea.setText("");
+            isbnTextField.setText("");
+            bookValueTextField.setText("");
+            digitalLinkTextField.setText("");
+            durationTextField.setText("");
+            pagesTextField.setText("");
+            copiesTextField.setText("");
+
+            genreComboBox.setSelectedIndex(0);
+            formatComboBox.setSelectedIndex(0);
+            publisherComboBox.setSelectedIndex(0);
+            narratorComboBox.setSelectedIndex(0);
+
+            printedRadioButton.setSelected(false);
+            digitalRadioButton.setSelected(false);
+            audiobookRadioButton.setSelected(false);
+
+            digitalLinkTextField.setEnabled(false);
+            durationTextField.setEnabled(false);
+            pagesTextField.setEnabled(false);
+            copiesTextField.setEnabled(false);
         }
-        
-        String publisherNit = publisherData.split(" ")[1].replace("(", "").replace(")", "");
-        
-        Publisher publisher = null;
-        for (Publisher publish : this.publishers) {
-            if (publish.getNit().equals(publisherNit)) {
-                publisher = publish;
-            }
-        }
-        
-        if (printedRadioButton.isSelected()) {
-            int pages = Integer.parseInt(pagesTextField.getText());
-            int copies = Integer.parseInt(copiesTextField.getText());
-            
-            this.books.add(new PrintedBook(title, authors, isbn, genre, format, value, publisher, pages, copies));
-        }
-        if (digitalRadioButton.isSelected()) {
-            String hyperlink = digitalLinkTextField.getText();
-            if (hyperlink.equals("")) {
-                this.books.add(new DigitalBook(title, authors, isbn, genre, format, value, publisher));
-            } else {
-                this.books.add(new DigitalBook(title, authors, isbn, genre, format, value, publisher, hyperlink));
-            }
-        }
-        if (audiobookRadioButton.isSelected()) {
-            int duration = Integer.parseInt(durationTextField.getText());
-            String[] narratorData = narratorComboBox.getItemAt(narratorComboBox.getSelectedIndex()).split(" - ");
-            
-            long narratorId = Long.parseLong(narratorData[0]);
-            
-            Narrator narrator = null;
-            for (Narrator narrat : this.narrators) {
-                if (narrat.getId() == narratorId) {
-                    narrator = narrat;
-                }
-            }
-            
-            this.books.add(new Audiobook(title, authors, isbn, genre, format, value, publisher, duration, narrator));
-        }
+
+
     }//GEN-LAST:event_createBookButtonActionPerformed
 
     private void addStandButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStandButtonActionPerformed
-        // TODO add your handling code here:
-        String stand = standIdComboBox.getItemAt(standIdComboBox.getSelectedIndex());
-        selectedStandsTextArea.append(stand + "\n");
+        String standText = (String) standIdComboBox.getSelectedItem();
+
+        Response response = StandPurchaseController.addStandToSelection(standText);
+
+        if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(this, response.getMessage(),
+                    "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+
+        } else if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(this, response.getMessage(),
+                    "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(this, response.getMessage(),
+                    "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            // Actualiza text area con stands
+            selectedStandsTextArea.setText("");
+            for (String s : StandPurchaseController.getSelectedStands()) {
+                selectedStandsTextArea.append(s + "\n");
+            }
+        }
     }//GEN-LAST:event_addStandButtonActionPerformed
 
     private void removeStandButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeStandButtonActionPerformed
-        // TODO add your handling code here:
-        String stand = standIdComboBox.getItemAt(standIdComboBox.getSelectedIndex());
-        selectedStandsTextArea.setText(selectedStandsTextArea.getText().replace(stand + "\n", ""));
+        String standText = (String) standIdComboBox.getSelectedItem();
+
+        Response response = StandPurchaseController.removeStandFromSelection(standText);
+
+        if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(this, response.getMessage(),
+                    "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+
+        } else if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(this, response.getMessage(),
+                    "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(this, response.getMessage(),
+                    "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            // Actualiza text area con stands
+            selectedStandsTextArea.setText("");
+            for (String s : StandPurchaseController.getSelectedStands()) {
+                selectedStandsTextArea.append(s + "\n");
+            }
+        }
     }//GEN-LAST:event_removeStandButtonActionPerformed
 
     private void addPublisherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPublisherButtonActionPerformed
-        // TODO add your handling code here:
-        String publisher = purchasePublisherComboBox.getItemAt(purchasePublisherComboBox.getSelectedIndex());
-        selectedPublishersTextArea.append(publisher + "\n");
+        String editorial = (String) purchasePublisherComboBox.getSelectedItem();
+
+        Response response = EditorialSelectionController.addEditorial(editorial);
+
+        if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(this, response.getMessage(),
+                    "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+
+        } else if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(this, response.getMessage(),
+                    "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(this, response.getMessage(),
+                    "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            // Actualizar text area con editoriales
+            selectedPublishersTextArea.setText("");
+            for (String s : EditorialSelectionController.getSelectedEditorials()) {
+                selectedPublishersTextArea.append(s + "\n");
+            }
+        }
     }//GEN-LAST:event_addPublisherButtonActionPerformed
 
     private void removePublisherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removePublisherButtonActionPerformed
-        // TODO add your handling code here:
-        String publisher = purchasePublisherComboBox.getItemAt(purchasePublisherComboBox.getSelectedIndex());
-        selectedPublishersTextArea.setText(selectedPublishersTextArea.getText().replace(publisher + "\n", ""));
+        String editorial = (String) purchasePublisherComboBox.getSelectedItem();
+
+        Response response = EditorialSelectionController.removeEditorial(editorial);
+
+        if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(this, response.getMessage(),
+                    "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+
+        } else if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(this, response.getMessage(),
+                    "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(this, response.getMessage(),
+                    "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            // Actualizar text area con editoriales
+            selectedPublishersTextArea.setText("");
+            for (String s : EditorialSelectionController.getSelectedEditorials()) {
+                selectedPublishersTextArea.append(s + "\n");
+            }
+        }
     }//GEN-LAST:event_removePublisherButtonActionPerformed
 
     private void purchaseStandButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseStandButtonActionPerformed
-        // TODO add your handling code here:
-        String[] standIds = selectedStandsTextArea.getText().split("\n");
-        String[] publishersData = selectedPublishersTextArea.getText().split("\n");
-        
-        ArrayList<Stand> stands = new ArrayList<>();
-        for (String standId : standIds) {
-            for (Stand stand : this.stands) {
-                if (stand.getId() == Long.parseLong(standId)) {
-                    stands.add(stand);
-                }
-            }
-        }
-        
-        ArrayList<Publisher> publishers = new ArrayList<>();
-        for (String publisherData : publishersData) {
-            String publisherNit = publisherData.split(" ")[1].replace("(", "").replace(")", "");
-            for (Publisher publisher : this.publishers) {
-                if (publisher.getNit().equals(publisherNit)) {
-                    publishers.add(publisher);
-                }
-            }
-        }
-        
-        for (Stand stand : stands) {
-            for (Publisher publisher : publishers) {
-                stand.addPublisher(publisher);
-                publisher.addStand(stand);
-            }
+
+        // obtener las listas temporales desde los controladores
+        ArrayList<String> standsSeleccionados = StandPurchaseController.getSelectedStands();
+        ArrayList<String> editorialesSeleccionadas = EditorialSelectionController.getSelectedEditorials();
+
+        // llamar al controlador real de compra
+        Response response = StandController.buyStands(standsSeleccionados,editorialesSeleccionadas);
+
+        // mostrar notificación
+        if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+
+        } else if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            // limpiar selección temporal
+            StandPurchaseController.clearSelection();
+            EditorialSelectionController.clear();
+
+            // borrar textAreas de la vista
+            selectedStandsTextArea.setText("");
+            selectedPublishersTextArea.setText("");
         }
     }//GEN-LAST:event_purchaseStandButtonActionPerformed
 
     private void consultPublishersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultPublishersButtonActionPerformed
-        // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) publisherTable.getModel();
         model.setRowCount(0);
-        for (Publisher publisher : this.publishers) {
-            model.addRow(new Object[]{publisher.getNit(), publisher.getName(), publisher.getAddress(), publisher.getManager().getFullname(), publisher.getStandQuantity()});
+
+        Response resp = PublisherController.listaEditoriales();
+
+        if (resp.getStatus() != Status.OK) {
+            JOptionPane.showMessageDialog(this, resp.getMessage());
+            return;
+        }
+
+        ArrayList<Object[]> rows = (ArrayList<Object[]>) resp.getObject();
+
+        for (Object[] row : rows) {
+            model.addRow(row);
         }
     }//GEN-LAST:event_consultPublishersButtonActionPerformed
 
     private void consultPeopleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultPeopleButtonActionPerformed
-        // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) personTable.getModel();
         model.setRowCount(0);
-        for (Author author : this.authors) {
-            model.addRow(new Object[]{author.getId(), author.getFullname(), "Autor", "-", author.getBookQuantity()});
+
+        Response resp = PersonController.listaPersonas();
+
+        // Revisar estado
+        if (resp.getStatus() != Status.OK) {
+            JOptionPane.showMessageDialog(this, resp.getMessage());
+            return;
         }
-        for (Manager manager : this.managers) {
-            model.addRow(new Object[]{manager.getId(), manager.getFullname(), "Gerente", manager.getPublisher().getName(), 0});
-        }
-        for (Narrator narrator : this.narrators) {
-            model.addRow(new Object[]{narrator.getId(), narrator.getFullname(), "Narrador", "-", narrator.getBookQuantity()});
+
+        // Obtener filas
+        ArrayList<Object[]> rows = (ArrayList<Object[]>) resp.getObject();
+
+        for (Object[] row : rows) {
+            model.addRow(row);
         }
     }//GEN-LAST:event_consultPeopleButtonActionPerformed
 
     private void consultStandsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultStandsButtonActionPerformed
-        // TODO add your handling code here:
+        // Obtener el modelo de la tabla
         DefaultTableModel model = (DefaultTableModel) standTable.getModel();
+
+        // Limpiar las filas actuales
         model.setRowCount(0);
-        for (Stand stand : this.stands) {
-            String publishers = "";
-            if (stand.getPublisherQuantity() > 0) {
-                publishers += stand.getPublishers().get(0).getName();
-                for (int i = 1; i < stand.getPublisherQuantity(); i++) {
-                    publishers += (", " + stand.getPublishers().get(i).getName());
-                }
-            }
-            model.addRow(new Object[]{stand.getId(), stand.getPrice(), stand.getPublisherQuantity() > 0 ? "Si" : "No", publishers});
+
+        // Llamar al controlador
+        Response resp = StandController.listaStands();
+
+        // Verificar el estado
+        if (resp.getStatus() != Status.OK) {
+            // Si hubo error o no hay datos, mostramos el mensaje
+            JOptionPane.showMessageDialog(this, resp.getMessage());
+            return;
         }
+
+        // Obtener las filas desde el Response
+        ArrayList<Object[]> rows = (ArrayList<Object[]>) resp.getObject();
+
+        for (Object[] row : rows) {
+            model.addRow(row);
+        }
+
     }//GEN-LAST:event_consultStandsButtonActionPerformed
 
     private void consultBooksButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultBooksButtonActionPerformed
-        // TODO add your handling code here:
-        String search = bookFilterComboBox.getItemAt(bookFilterComboBox.getSelectedIndex());
-        
+        String search = (String) bookFilterComboBox.getSelectedItem();
+
         DefaultTableModel model = (DefaultTableModel) bookTable.getModel();
         model.setRowCount(0);
-        
-        if (search.equals("Libros Impresos")) {
-            for (Book book : this.books) {
-                if (book instanceof PrintedBook printedBook) {
-                    String authors = printedBook.getAuthors().get(0).getFullname();
-                    for (int i = 1; i < printedBook.getAuthors().size(); i++) {
-                        authors += (", " + printedBook.getAuthors().get(i).getFullname());
-                    }
-                    model.addRow(new Object[]{printedBook.getTitle(), authors, printedBook.getIsbn(), printedBook.getGenre(), printedBook.getFormat(), printedBook.getValue(), printedBook.getPublisher().getName(), printedBook.getCopies(), printedBook.getPages(), "-", "-", "-"});
-                }
-            }
+
+        Response resp = BookController.listBooksByType(search);
+
+        if (resp.getStatus() != Status.OK) {
+            JOptionPane.showMessageDialog(this, resp.getMessage());
+            return;
         }
-        if (search.equals("Libros Digitales")) {
-            for (Book book : this.books) {
-                if (book instanceof DigitalBook digitalBook) {
-                    String authors = digitalBook.getAuthors().get(0).getFullname();
-                    for (int i = 1; i < digitalBook.getAuthors().size(); i++) {
-                        authors += (", " + digitalBook.getAuthors().get(i).getFullname());
-                    }
-                    model.addRow(new Object[]{digitalBook.getTitle(), authors, digitalBook.getIsbn(), digitalBook.getGenre(), digitalBook.getFormat(), digitalBook.getValue(), digitalBook.getPublisher().getName(), "-", "-", digitalBook.hasHyperlink() ? digitalBook.getHyperlink() : "No", "-", "-"});
-                }
-            }
-        }
-        if (search.equals("Audiolibros")) {
-            for (Book book : this.books) {
-                if (book instanceof Audiobook audiobook) {
-                    String authors = audiobook.getAuthors().get(0).getFullname();
-                    for (int i = 1; i < audiobook.getAuthors().size(); i++) {
-                        authors += (", " + audiobook.getAuthors().get(i).getFullname());
-                    }
-                    model.addRow(new Object[]{audiobook.getTitle(), authors, audiobook.getIsbn(), audiobook.getGenre(), audiobook.getFormat(), audiobook.getValue(), audiobook.getPublisher().getName(), "-", "-", "-", audiobook.getNarrador().getFullname(), audiobook.getDuration()});
-                }
-            }
-        }
-        if (search.equals("Todos los Libros")) {
-            for (Book book : this.books) { 
-                String authors = book.getAuthors().get(0).getFullname();
-                for (int i = 1; i < book.getAuthors().size(); i++) {
-                    authors += (", " + book.getAuthors().get(i).getFullname());
-                }
-                if (book instanceof PrintedBook printedBook) {
-                    model.addRow(new Object[]{printedBook.getTitle(), authors, printedBook.getIsbn(), printedBook.getGenre(), printedBook.getFormat(), printedBook.getValue(), printedBook.getPublisher().getName(), printedBook.getCopies(), printedBook.getPages(), "-", "-", "-"});
-                }
-                if (book instanceof DigitalBook digitalBook) {
-                    model.addRow(new Object[]{digitalBook.getTitle(), authors, digitalBook.getIsbn(), digitalBook.getGenre(), digitalBook.getFormat(), digitalBook.getValue(), digitalBook.getPublisher().getName(), "-", "-", digitalBook.hasHyperlink() ? digitalBook.getHyperlink() : "No", "-", "-"});
-                }
-                if (book instanceof Audiobook audiobook) {
-                    model.addRow(new Object[]{audiobook.getTitle(), authors, audiobook.getIsbn(), audiobook.getGenre(), audiobook.getFormat(), audiobook.getValue(), audiobook.getPublisher().getName(), "-", "-", "-", audiobook.getNarrador().getFullname(), audiobook.getDuration()});
-                }
-            }
+
+        ArrayList<Object[]> rows = (ArrayList<Object[]>) resp.getObject();
+
+        for (Object[] row : rows) {
+            model.addRow(row);
         }
     }//GEN-LAST:event_consultBooksButtonActionPerformed
 
     private void searchBooksByAuthorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBooksByAuthorButtonActionPerformed
-        // TODO add your handling code here:
-        String[] authorData = authorSearchComboBox.getItemAt(authorSearchComboBox.getSelectedIndex()).split(" - ");
-        long authorId = Long.parseLong(authorData[0]);
-        
-        Author author = null;
-        for (Author auth : this.authors) {
-            if (auth.getId() == authorId) {
-                author = auth;
-            }
-        }
-        
+
+        String item = authorSearchComboBox.getItemAt(authorSearchComboBox.getSelectedIndex());
+
         DefaultTableModel model = (DefaultTableModel) authorBooksTable.getModel();
         model.setRowCount(0);
-        
-        for (Book book : author.getBooks()) { 
-            String authors = book.getAuthors().get(0).getFullname();
-            for (int i = 1; i < book.getAuthors().size(); i++) {
-                authors += (", " + book.getAuthors().get(i).getFullname());
-            }
-            if (book instanceof PrintedBook printedBook) {
-                model.addRow(new Object[]{printedBook.getTitle(), authors, printedBook.getIsbn(), printedBook.getGenre(), printedBook.getFormat(), printedBook.getValue(), printedBook.getPublisher().getName(), printedBook.getCopies(), printedBook.getPages(), "-", "-", "-"});
-            }
-            if (book instanceof DigitalBook digitalBook) {
-                model.addRow(new Object[]{digitalBook.getTitle(), authors, digitalBook.getIsbn(), digitalBook.getGenre(), digitalBook.getFormat(), digitalBook.getValue(), digitalBook.getPublisher().getName(), "-", "-", digitalBook.hasHyperlink() ? digitalBook.getHyperlink() : "No", "-", "-"});
-            }
-            if (book instanceof Audiobook audiobook) {
-                model.addRow(new Object[]{audiobook.getTitle(), authors, audiobook.getIsbn(), audiobook.getGenre(), audiobook.getFormat(), audiobook.getValue(), audiobook.getPublisher().getName(), "-", "-", "-", audiobook.getNarrador().getFullname(), audiobook.getDuration()});
-            }
+
+        Response resp = AuthorController.getBooksByAuthor(item);
+
+        if (resp.getStatus() != Status.OK) {
+            JOptionPane.showMessageDialog(this, resp.getMessage());
+            return;
         }
+
+        ArrayList<Object[]> rows = (ArrayList<Object[]>) resp.getObject();
+
+        for (Object[] row : rows) {
+            model.addRow(row);
+        }
+
     }//GEN-LAST:event_searchBooksByAuthorButtonActionPerformed
 
     private void searchBooksByFormatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBooksByFormatButtonActionPerformed
-        // TODO add your handling code here:
+
         String format = formatSearchComboBox.getItemAt(formatSearchComboBox.getSelectedIndex());
-        
+
+        // Limpiar tabla
         DefaultTableModel model = (DefaultTableModel) authorBooksTable.getModel();
         model.setRowCount(0);
-        
-        for (Book book : this.books) { 
-            if (book.getFormat().equals(format)) {
-                String authors = book.getAuthors().get(0).getFullname();
-                for (int i = 1; i < book.getAuthors().size(); i++) {
-                    authors += (", " + book.getAuthors().get(i).getFullname());
-                }
-                if (book instanceof PrintedBook printedBook) {
-                    model.addRow(new Object[]{printedBook.getTitle(), authors, printedBook.getIsbn(), printedBook.getGenre(), printedBook.getFormat(), printedBook.getValue(), printedBook.getPublisher().getName(), printedBook.getCopies(), printedBook.getPages(), "-", "-", "-"});
-                }
-                if (book instanceof DigitalBook digitalBook) {
-                    model.addRow(new Object[]{digitalBook.getTitle(), authors, digitalBook.getIsbn(), digitalBook.getGenre(), digitalBook.getFormat(), digitalBook.getValue(), digitalBook.getPublisher().getName(), "-", "-", digitalBook.hasHyperlink() ? digitalBook.getHyperlink() : "No", "-", "-"});
-                }
-                if (book instanceof Audiobook audiobook) {
-                    model.addRow(new Object[]{audiobook.getTitle(), authors, audiobook.getIsbn(), audiobook.getGenre(), audiobook.getFormat(), audiobook.getValue(), audiobook.getPublisher().getName(), "-", "-", "-", audiobook.getNarrador().getFullname(), audiobook.getDuration()});
-                }
-            }
+
+        // Llamar al controlador
+        Response resp = BookController.getBooksByFormat(format);
+
+        // Manejar respuesta
+        if (resp.getStatus() != Status.OK) {
+            JOptionPane.showMessageDialog(this, resp.getMessage());
+            return;
+        }
+
+        // Obtener filas 
+        ArrayList<Object[]> rows = (ArrayList<Object[]>) resp.getObject();
+
+        for (Object[] row : rows) {
+            model.addRow(row);
         }
     }//GEN-LAST:event_searchBooksByFormatButtonActionPerformed
 
     private void consultTopAuthorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultTopAuthorsButtonActionPerformed
-        // TODO add your handling code here:
-        ArrayList<Author> authorsMax = new ArrayList<>();
-        int maxPublishers = -1;
-        for (Author author : this.authors) {
-            if (author.getPublisherQuantity() > maxPublishers) {
-                maxPublishers = author.getPublisherQuantity();
-                authorsMax.clear();
-                authorsMax.add(author);
-            } else if (author.getPublisherQuantity() == maxPublishers) {
-                authorsMax.add(author);
-            }
-        }
-        
+
         DefaultTableModel model = (DefaultTableModel) topAuthorsTable.getModel();
         model.setRowCount(0);
-        
-        for (Author author : authorsMax) {
-            model.addRow(new Object[]{author.getId(), author.getFullname(), maxPublishers});
+
+        // Llamar al controlador
+        Response resp = AuthorController.getAuthorsWithMaxPublishers();
+
+        if (resp.getStatus() != Status.OK) {
+            JOptionPane.showMessageDialog(this, resp.getMessage());
+            return;
+        }
+
+        ArrayList<Object[]> rows = (ArrayList<Object[]>) resp.getObject();
+
+        for (Object[] row : rows) {
+            model.addRow(row);
         }
     }//GEN-LAST:event_consultTopAuthorsButtonActionPerformed
 
+    private void standIdComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_standIdComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_standIdComboBoxActionPerformed
+
+    private void bookFilterComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookFilterComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookFilterComboBoxActionPerformed
+
+    private void authorComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_authorComboBoxActionPerformed
+
+    private void authorSearchComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorSearchComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_authorSearchComboBoxActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addAuthorButton;
@@ -1858,6 +1926,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel audiobookDurationLabel;
     private javax.swing.JLabel audiobookNarratorLabel;
     private javax.swing.JRadioButton audiobookRadioButton;
+    private javax.swing.JScrollPane authorBooksScrollPane;
     private javax.swing.JTable authorBooksTable;
     private javax.swing.JComboBox<String> authorComboBox;
     private javax.swing.JComboBox<String> authorSearchComboBox;
@@ -1874,6 +1943,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel bookSearchFormatLabel;
     private javax.swing.JLabel bookSearchTitleLabel;
     private javax.swing.JTable bookTable;
+    private javax.swing.JScrollPane bookTableScrollPane;
     private javax.swing.JLabel bookTitleLabel;
     private javax.swing.JTextField bookTitleTextField;
     private javax.swing.JLabel bookTypeLabel;
@@ -1899,15 +1969,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> formatSearchComboBox;
     private javax.swing.JComboBox<String> genreComboBox;
     private javax.swing.JTextField isbnTextField;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JPanel mainPanel;
     private javax.swing.JTabbedPane mainTabbedPane;
     private javax.swing.JComboBox<String> managerComboBox;
     private javax.swing.JComboBox<String> narratorComboBox;
@@ -1921,6 +1983,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel personNameLabel;
     private javax.swing.JPanel personPanel;
     private javax.swing.JTable personTable;
+    private javax.swing.JScrollPane personTableScrollPane;
     private javax.swing.JLabel printedCopiesLabel;
     private javax.swing.JLabel printedPagesLabel;
     private javax.swing.JRadioButton printedRadioButton;
@@ -1935,6 +1998,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JTextField publisherNitTextField;
     private javax.swing.JPanel publisherPanel;
     private javax.swing.JTable publisherTable;
+    private javax.swing.JScrollPane publisherTableScrollPane;
     private javax.swing.JComboBox<String> purchasePublisherComboBox;
     private javax.swing.JLabel purchasePublishersLabel;
     private javax.swing.JButton purchaseStandButton;
@@ -1946,7 +2010,9 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JButton searchBooksByFormatButton;
     private javax.swing.JScrollPane selectedAuthorsScrollPane;
     private javax.swing.JTextArea selectedAuthorsTextArea;
+    private javax.swing.JScrollPane selectedPublishersScrollPane;
     private javax.swing.JTextArea selectedPublishersTextArea;
+    private javax.swing.JScrollPane selectedStandsScrollPane;
     private javax.swing.JTextArea selectedStandsTextArea;
     private javax.swing.JPanel standConsultPanel;
     private javax.swing.JComboBox<String> standIdComboBox;
@@ -1957,7 +2023,9 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JTextField standPriceTextField;
     private javax.swing.JPanel standPurchasePanel;
     private javax.swing.JTable standTable;
+    private javax.swing.JScrollPane standTableScrollPane;
     private javax.swing.JLabel topAuthorsLabel;
+    private javax.swing.JScrollPane topAuthorsScrollPane;
     private javax.swing.JTable topAuthorsTable;
     // End of variables declaration//GEN-END:variables
 }
