@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * @author famil
  */
 public class StandController {
-    
+
     private static IRepositoryProvider repositoryProvider = RepositoryProvider.getProvider();
     private static IStandRepository standRepository = repositoryProvider.getStandRepository();
     private static IPublisherRepository publisherRepository = repositoryProvider.getPublisherRepository();
@@ -31,14 +31,12 @@ public class StandController {
             publisherRepository = customProvider.getPublisherRepository();
         }
     }
-    
-    
+
     public static Response createStand(String id, String price) {
         try {
             long idLong;
             double priceDouble;
 
-            
             if (id == null || id.trim().isEmpty()) {
                 return new Response("El ID no puede estar vacío.", Status.BAD_REQUEST);
             }
@@ -58,7 +56,6 @@ public class StandController {
                 return new Response("El ID debe ser numérico.", Status.BAD_REQUEST);
             }
 
-            
             if (price == null || price.trim().isEmpty()) {
                 return new Response("El precio no puede estar vacío.", Status.BAD_REQUEST);
             }
@@ -74,12 +71,10 @@ public class StandController {
                 return new Response("El precio debe ser numérico.", Status.BAD_REQUEST);
             }
 
-            
             if (standRepository.findById(idLong) != null) {
                 return new Response("Ya existe un stand con este ID.", Status.BAD_REQUEST);
             }
 
-            
             Stand stand = new Stand(idLong, priceDouble);
 
             boolean added = standRepository.add(stand);
@@ -93,8 +88,7 @@ public class StandController {
             return new Response("Error inesperado.", Status.INTERNAL_SERVER_ERROR);
         }
     }
-    
-    
+
     public static Response buyStands(ArrayList<String> standTexts, ArrayList<String> editorialTexts) {
 
         try {
@@ -110,7 +104,6 @@ public class StandController {
             ArrayList<Stand> stands = new ArrayList<>();
             ArrayList<Publisher> publishers = new ArrayList<>();
 
-            
             ArrayList<Long> usedStandIds = new ArrayList<>();
 
             for (String s : standTexts) {
@@ -136,10 +129,8 @@ public class StandController {
                 stands.add(stand);
             }
 
-            
             stands.sort((a, b) -> Long.compare(a.getId(), b.getId()));
 
-            
             ArrayList<String> usedNits = new ArrayList<>();
 
             for (String e : editorialTexts) {
@@ -188,7 +179,6 @@ public class StandController {
             ArrayList<Stand> stands = standRepository.getAll();
             ArrayList<Object[]> rows = new ArrayList<>();
 
-            
             if (stands == null || stands.isEmpty()) {
                 return new Response("No hay stands registrados.", Status.NOT_FOUND);
             }
@@ -202,7 +192,6 @@ public class StandController {
                 return new Response("Error al copiar stands.", Status.INTERNAL_SERVER_ERROR);
             }
 
-            
             for (Stand stand : standCopies) {
 
                 String publishers = "";
@@ -224,12 +213,11 @@ public class StandController {
                 rows.add(fila);
             }
 
-            
             for (int i = 0; i < rows.size() - 1; i++) {
                 for (int j = i + 1; j < rows.size(); j++) {
 
-                    int id1 = (int) rows.get(i)[0];
-                    int id2 = (int) rows.get(j)[0];
+                    long id1 = (Long) rows.get(i)[0];   
+                    long id2 = (Long) rows.get(j)[0];
 
                     if (id1 > id2) {
                         Object[] temp = rows.get(i);
