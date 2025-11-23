@@ -53,7 +53,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mainPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         mainTabbedPane = new javax.swing.JTabbedPane();
         standPanel = new javax.swing.JPanel();
         standPriceLabel = new javax.swing.JLabel();
@@ -71,16 +71,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         personLastNameLabel = new javax.swing.JLabel();
         createManagerButton = new javax.swing.JButton();
         createNarratorButton = new javax.swing.JButton();
-        publisherPanel = new javax.swing.JPanel();
-        publisherNitLabel = new javax.swing.JLabel();
-        publisherNitTextField = new javax.swing.JTextField();
-        publisherNameTextField = new javax.swing.JTextField();
-        publisherNameLabel = new javax.swing.JLabel();
-        publisherAddressLabel = new javax.swing.JLabel();
-        publisherAddressTextField = new javax.swing.JTextField();
-        createPublisherButton = new javax.swing.JButton();
-        publisherManagerLabel = new javax.swing.JLabel();
-        managerComboBox = new javax.swing.JComboBox<>();
         bookPanel = new javax.swing.JPanel();
         bookTitleLabel = new javax.swing.JLabel();
         bookTitleTextField = new javax.swing.JTextField();
@@ -123,26 +113,26 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         addPublisherButton = new javax.swing.JButton();
         purchaseStandButton = new javax.swing.JButton();
         removePublisherButton = new javax.swing.JButton();
-        selectedPublishersScrollPane = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         selectedPublishersTextArea = new javax.swing.JTextArea();
         addStandButton = new javax.swing.JButton();
         removeStandButton = new javax.swing.JButton();
-        selectedStandsScrollPane = new javax.swing.JScrollPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
         selectedStandsTextArea = new javax.swing.JTextArea();
         publisherConsultPanel = new javax.swing.JPanel();
-        publisherTableScrollPane = new javax.swing.JScrollPane();
+        jScrollPane4 = new javax.swing.JScrollPane();
         publisherTable = new javax.swing.JTable();
         consultPublishersButton = new javax.swing.JButton();
         personConsultPanel = new javax.swing.JPanel();
-        personTableScrollPane = new javax.swing.JScrollPane();
+        jScrollPane5 = new javax.swing.JScrollPane();
         personTable = new javax.swing.JTable();
         consultPeopleButton = new javax.swing.JButton();
         standConsultPanel = new javax.swing.JPanel();
-        standTableScrollPane = new javax.swing.JScrollPane();
+        jScrollPane6 = new javax.swing.JScrollPane();
         standTable = new javax.swing.JTable();
         consultStandsButton = new javax.swing.JButton();
         bookConsultPanel = new javax.swing.JPanel();
-        bookTableScrollPane = new javax.swing.JScrollPane();
+        jScrollPane7 = new javax.swing.JScrollPane();
         bookTable = new javax.swing.JTable();
         consultBooksButton = new javax.swing.JButton();
         bookFilterComboBox = new javax.swing.JComboBox<>();
@@ -152,15 +142,25 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         authorSearchComboBox = new javax.swing.JComboBox<>();
         bookSearchAuthorLabel = new javax.swing.JLabel();
         searchBooksByAuthorButton = new javax.swing.JButton();
-        authorBooksScrollPane = new javax.swing.JScrollPane();
+        jScrollPane8 = new javax.swing.JScrollPane();
         authorBooksTable = new javax.swing.JTable();
         bookSearchFormatLabel = new javax.swing.JLabel();
         formatSearchComboBox = new javax.swing.JComboBox<>();
         searchBooksByFormatButton = new javax.swing.JButton();
         topAuthorsLabel = new javax.swing.JLabel();
-        topAuthorsScrollPane = new javax.swing.JScrollPane();
+        jScrollPane9 = new javax.swing.JScrollPane();
         topAuthorsTable = new javax.swing.JTable();
         consultTopAuthorsButton = new javax.swing.JButton();
+        publisherPanel = new javax.swing.JPanel();
+        publisherNitLabel = new javax.swing.JLabel();
+        publisherNitTextField = new javax.swing.JTextField();
+        publisherNameTextField = new javax.swing.JTextField();
+        publisherNameLabel = new javax.swing.JLabel();
+        publisherAddressLabel = new javax.swing.JLabel();
+        publisherAddressTextField = new javax.swing.JTextField();
+        createPublisherButton = new javax.swing.JButton();
+        publisherManagerLabel = new javax.swing.JLabel();
+        managerComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -316,105 +316,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         );
 
         mainTabbedPane.addTab("Persona", personPanel);
-
-        publisherNitLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherNitLabel.setText("NIT");
-
-        publisherNitTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherNitTextField.setToolTipText("");
-        publisherNitTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                publisherNitTextFieldActionPerformed(evt);
-            }
-        });
-
-        publisherNameTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherNameTextField.setToolTipText("");
-        publisherNameTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                publisherNameTextFieldActionPerformed(evt);
-            }
-        });
-
-        publisherNameLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherNameLabel.setText("Nombre");
-
-        publisherAddressLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherAddressLabel.setText("Dirección");
-
-        publisherAddressTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherAddressTextField.setToolTipText("");
-        publisherAddressTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                publisherAddressTextFieldActionPerformed(evt);
-            }
-        });
-
-        createPublisherButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        createPublisherButton.setText("Crear");
-        createPublisherButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createPublisherButtonActionPerformed(evt);
-            }
-        });
-
-        publisherManagerLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        publisherManagerLabel.setText("Gerente");
-
-        managerComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        managerComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno..." }));
-
-        javax.swing.GroupLayout publisherPanelLayout = new javax.swing.GroupLayout(publisherPanel);
-        publisherPanel.setLayout(publisherPanelLayout);
-        publisherPanelLayout.setHorizontalGroup(
-            publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(publisherPanelLayout.createSequentialGroup()
-                .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(publisherPanelLayout.createSequentialGroup()
-                        .addGap(273, 273, 273)
-                        .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(publisherAddressLabel)
-                            .addComponent(publisherNitLabel)
-                            .addComponent(publisherNameLabel)
-                            .addComponent(publisherManagerLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(publisherNitTextField)
-                            .addComponent(publisherNameTextField)
-                            .addComponent(publisherAddressTextField)
-                            .addComponent(managerComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(publisherPanelLayout.createSequentialGroup()
-                        .addGap(361, 361, 361)
-                        .addComponent(createPublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(285, Short.MAX_VALUE))
-        );
-        publisherPanelLayout.setVerticalGroup(
-            publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(publisherPanelLayout.createSequentialGroup()
-                .addGap(144, 144, 144)
-                .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(publisherPanelLayout.createSequentialGroup()
-                        .addComponent(publisherNitLabel)
-                        .addGap(15, 15, 15)
-                        .addComponent(publisherNameLabel)
-                        .addGap(20, 20, 20)
-                        .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(publisherAddressLabel)
-                            .addComponent(publisherAddressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(publisherPanelLayout.createSequentialGroup()
-                        .addComponent(publisherNitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addComponent(publisherNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(managerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(publisherManagerLabel))
-                .addGap(46, 46, 46)
-                .addComponent(createPublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(175, Short.MAX_VALUE))
-        );
-
-        mainTabbedPane.addTab("Editorial", publisherPanel);
 
         bookTitleLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         bookTitleLabel.setText("Titulo");
@@ -739,11 +640,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
         standIdComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         standIdComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno..." }));
-        standIdComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                standIdComboBoxActionPerformed(evt);
-            }
-        });
 
         purchasePublisherComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         purchasePublisherComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno..." }));
@@ -782,7 +678,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         selectedPublishersTextArea.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         selectedPublishersTextArea.setRows(5);
         selectedPublishersTextArea.setEnabled(false);
-        selectedPublishersScrollPane.setViewportView(selectedPublishersTextArea);
+        jScrollPane1.setViewportView(selectedPublishersTextArea);
 
         addStandButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         addStandButton.setText("Agregar Stand");
@@ -804,7 +700,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         selectedStandsTextArea.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         selectedStandsTextArea.setRows(5);
         selectedStandsTextArea.setEnabled(false);
-        selectedStandsScrollPane.setViewportView(selectedStandsTextArea);
+        jScrollPane3.setViewportView(selectedStandsTextArea);
 
         javax.swing.GroupLayout standPurchasePanelLayout = new javax.swing.GroupLayout(standPurchasePanel);
         standPurchasePanel.setLayout(standPurchasePanelLayout);
@@ -818,7 +714,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                         .addGap(321, 321, 321))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, standPurchasePanelLayout.createSequentialGroup()
                         .addGroup(standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(selectedPublishersScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(standPurchasePanelLayout.createSequentialGroup()
                                 .addComponent(purchasePublishersLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -835,7 +731,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addComponent(standIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(selectedStandsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(standPurchasePanelLayout.createSequentialGroup()
                         .addComponent(addStandButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -860,13 +756,13 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                             .addComponent(addStandButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(removeStandButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(selectedStandsScrollPane)
+                        .addComponent(jScrollPane3)
                         .addGap(8, 8, 8)
                         .addGroup(standPurchasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addPublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(removePublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(selectedPublishersScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(purchaseStandButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59))
@@ -893,7 +789,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        publisherTableScrollPane.setViewportView(publisherTable);
+        jScrollPane4.setViewportView(publisherTable);
 
         consultPublishersButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         consultPublishersButton.setText("Consultar");
@@ -911,7 +807,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addGroup(publisherConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(publisherConsultPanelLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(publisherTableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(publisherConsultPanelLayout.createSequentialGroup()
                         .addGap(361, 361, 361)
                         .addComponent(consultPublishersButton)))
@@ -921,7 +817,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             publisherConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(publisherConsultPanelLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(publisherTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(consultPublishersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
@@ -948,7 +844,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        personTableScrollPane.setViewportView(personTable);
+        jScrollPane5.setViewportView(personTable);
 
         consultPeopleButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         consultPeopleButton.setText("Consultar");
@@ -966,7 +862,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addGroup(personConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(personConsultPanelLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(personTableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(personConsultPanelLayout.createSequentialGroup()
                         .addGap(361, 361, 361)
                         .addComponent(consultPeopleButton)))
@@ -976,7 +872,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             personConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(personConsultPanelLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(personTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(consultPeopleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
@@ -1003,7 +899,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        standTableScrollPane.setViewportView(standTable);
+        jScrollPane6.setViewportView(standTable);
 
         consultStandsButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         consultStandsButton.setText("Consultar");
@@ -1022,7 +918,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addGroup(standConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(standConsultPanelLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(standTableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(standConsultPanelLayout.createSequentialGroup()
                         .addGap(361, 361, 361)
                         .addComponent(consultStandsButton)))
@@ -1032,7 +928,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             standConsultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(standConsultPanelLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(standTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(consultStandsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
@@ -1059,7 +955,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        bookTableScrollPane.setViewportView(bookTable);
+        jScrollPane7.setViewportView(bookTable);
 
         consultBooksButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         consultBooksButton.setText("Consultar");
@@ -1071,11 +967,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
         bookFilterComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         bookFilterComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno...", "Libros Impresos", "Libros Digitales", "Audiolibros", "Todos los Libros" }));
-        bookFilterComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bookFilterComboBoxActionPerformed(evt);
-            }
-        });
 
         bookFilterLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         bookFilterLabel.setText("Libros");
@@ -1091,7 +982,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                         .addComponent(consultBooksButton))
                     .addGroup(bookConsultPanelLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(bookTableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(bookConsultPanelLayout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(bookFilterLabel)
@@ -1107,7 +998,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                     .addComponent(bookFilterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bookFilterLabel))
                 .addGap(18, 18, 18)
-                .addComponent(bookTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(consultBooksButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
@@ -1120,11 +1011,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
         authorSearchComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         authorSearchComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno..." }));
-        authorSearchComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                authorSearchComboBoxActionPerformed(evt);
-            }
-        });
 
         bookSearchAuthorLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         bookSearchAuthorLabel.setText("Autor");
@@ -1156,7 +1042,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        authorBooksScrollPane.setViewportView(authorBooksTable);
+        jScrollPane8.setViewportView(authorBooksTable);
 
         bookSearchFormatLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         bookSearchFormatLabel.setText("Formato");
@@ -1194,7 +1080,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        topAuthorsScrollPane.setViewportView(topAuthorsTable);
+        jScrollPane9.setViewportView(topAuthorsTable);
 
         consultTopAuthorsButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         consultTopAuthorsButton.setText("Consultar");
@@ -1232,11 +1118,11 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                     .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(additionalQueriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(authorBooksScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(additionalQueriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(topAuthorsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(topAuthorsLabel)))))
                     .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
                         .addGap(345, 345, 345)
@@ -1248,7 +1134,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             .addGroup(additionalQueriesPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(bookSearchTitleLabel)
-                .addGap(43, 43, 43)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(additionalQueriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bookSearchAuthorLabel)
                     .addComponent(authorSearchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1257,38 +1143,137 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                     .addComponent(formatSearchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchBooksByFormatButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(authorBooksScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(topAuthorsLabel)
                 .addGap(18, 18, 18)
-                .addComponent(topAuthorsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(consultTopAuthorsButton)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         mainTabbedPane.addTab("Consultas Adicionales", additionalQueriesPanel);
 
-        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
-        mainPanel.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        publisherNitLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherNitLabel.setText("NIT");
+
+        publisherNitTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherNitTextField.setToolTipText("");
+        publisherNitTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                publisherNitTextFieldActionPerformed(evt);
+            }
+        });
+
+        publisherNameTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherNameTextField.setToolTipText("");
+        publisherNameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                publisherNameTextFieldActionPerformed(evt);
+            }
+        });
+
+        publisherNameLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherNameLabel.setText("Nombre");
+
+        publisherAddressLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherAddressLabel.setText("Dirección");
+
+        publisherAddressTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherAddressTextField.setToolTipText("");
+        publisherAddressTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                publisherAddressTextFieldActionPerformed(evt);
+            }
+        });
+
+        createPublisherButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        createPublisherButton.setText("Crear");
+        createPublisherButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createPublisherButtonActionPerformed(evt);
+            }
+        });
+
+        publisherManagerLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        publisherManagerLabel.setText("Gerente");
+
+        managerComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        managerComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno..." }));
+
+        javax.swing.GroupLayout publisherPanelLayout = new javax.swing.GroupLayout(publisherPanel);
+        publisherPanel.setLayout(publisherPanelLayout);
+        publisherPanelLayout.setHorizontalGroup(
+            publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(publisherPanelLayout.createSequentialGroup()
+                .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(publisherPanelLayout.createSequentialGroup()
+                        .addGap(273, 273, 273)
+                        .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(publisherAddressLabel)
+                            .addComponent(publisherNitLabel)
+                            .addComponent(publisherNameLabel)
+                            .addComponent(publisherManagerLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(publisherNitTextField)
+                            .addComponent(publisherNameTextField)
+                            .addComponent(publisherAddressTextField)
+                            .addComponent(managerComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(publisherPanelLayout.createSequentialGroup()
+                        .addGap(361, 361, 361)
+                        .addComponent(createPublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(285, Short.MAX_VALUE))
+        );
+        publisherPanelLayout.setVerticalGroup(
+            publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(publisherPanelLayout.createSequentialGroup()
+                .addGap(144, 144, 144)
+                .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(publisherPanelLayout.createSequentialGroup()
+                        .addComponent(publisherNitLabel)
+                        .addGap(15, 15, 15)
+                        .addComponent(publisherNameLabel)
+                        .addGap(20, 20, 20)
+                        .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(publisherAddressLabel)
+                            .addComponent(publisherAddressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(publisherPanelLayout.createSequentialGroup()
+                        .addComponent(publisherNitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addComponent(publisherNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(publisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(managerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(publisherManagerLabel))
+                .addGap(46, 46, 46)
+                .addComponent(createPublisherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(175, Short.MAX_VALUE))
+        );
+
+        mainTabbedPane.addTab("Editorial", publisherPanel);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(mainTabbedPane)
         );
-        mainPanelLayout.setVerticalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainTabbedPane)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(mainTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -1587,7 +1572,8 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             durationTextField.setText("");
             pagesTextField.setText("");
             copiesTextField.setText("");
-
+            
+            authorComboBox.setSelectedIndex(0);
             genreComboBox.setSelectedIndex(0);
             formatComboBox.setSelectedIndex(0);
             publisherComboBox.setSelectedIndex(0);
@@ -1890,7 +1876,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel audiobookDurationLabel;
     private javax.swing.JLabel audiobookNarratorLabel;
     private javax.swing.JRadioButton audiobookRadioButton;
-    private javax.swing.JScrollPane authorBooksScrollPane;
     private javax.swing.JTable authorBooksTable;
     private javax.swing.JComboBox<String> authorComboBox;
     private javax.swing.JComboBox<String> authorSearchComboBox;
@@ -1907,7 +1892,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel bookSearchFormatLabel;
     private javax.swing.JLabel bookSearchTitleLabel;
     private javax.swing.JTable bookTable;
-    private javax.swing.JScrollPane bookTableScrollPane;
     private javax.swing.JLabel bookTitleLabel;
     private javax.swing.JTextField bookTitleTextField;
     private javax.swing.JLabel bookTypeLabel;
@@ -1933,7 +1917,15 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> formatSearchComboBox;
     private javax.swing.JComboBox<String> genreComboBox;
     private javax.swing.JTextField isbnTextField;
-    private javax.swing.JPanel mainPanel;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane mainTabbedPane;
     private javax.swing.JComboBox<String> managerComboBox;
     private javax.swing.JComboBox<String> narratorComboBox;
@@ -1947,7 +1939,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel personNameLabel;
     private javax.swing.JPanel personPanel;
     private javax.swing.JTable personTable;
-    private javax.swing.JScrollPane personTableScrollPane;
     private javax.swing.JLabel printedCopiesLabel;
     private javax.swing.JLabel printedPagesLabel;
     private javax.swing.JRadioButton printedRadioButton;
@@ -1962,7 +1953,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JTextField publisherNitTextField;
     private javax.swing.JPanel publisherPanel;
     private javax.swing.JTable publisherTable;
-    private javax.swing.JScrollPane publisherTableScrollPane;
     private javax.swing.JComboBox<String> purchasePublisherComboBox;
     private javax.swing.JLabel purchasePublishersLabel;
     private javax.swing.JButton purchaseStandButton;
@@ -1974,9 +1964,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JButton searchBooksByFormatButton;
     private javax.swing.JScrollPane selectedAuthorsScrollPane;
     private javax.swing.JTextArea selectedAuthorsTextArea;
-    private javax.swing.JScrollPane selectedPublishersScrollPane;
     private javax.swing.JTextArea selectedPublishersTextArea;
-    private javax.swing.JScrollPane selectedStandsScrollPane;
     private javax.swing.JTextArea selectedStandsTextArea;
     private javax.swing.JPanel standConsultPanel;
     private javax.swing.JComboBox<String> standIdComboBox;
@@ -1987,9 +1975,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JTextField standPriceTextField;
     private javax.swing.JPanel standPurchasePanel;
     private javax.swing.JTable standTable;
-    private javax.swing.JScrollPane standTableScrollPane;
     private javax.swing.JLabel topAuthorsLabel;
-    private javax.swing.JScrollPane topAuthorsScrollPane;
     private javax.swing.JTable topAuthorsTable;
     // End of variables declaration//GEN-END:variables
 }
